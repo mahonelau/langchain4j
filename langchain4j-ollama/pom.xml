@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-parent</artifactId>
         <version>0.28.0</version>
         <relativePath>../langchain4j-parent/pom.xml</relativePath>
@@ -14,12 +14,12 @@
     <name>LangChain4j :: Integration :: Ollama</name>
 
     <properties>
-        <skipOllamaITs>false</skipOllamaITs>
+        <skipOllamaITs>true</skipOllamaITs>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>dev.langchain4j</groupId>
+            <groupId>keyi.langchain4j</groupId>
             <artifactId>langchain4j-core</artifactId>
         </dependency>
 

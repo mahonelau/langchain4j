@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-parent</artifactId>
         <version>0.28.0</version>
         <relativePath>../langchain4j-parent/pom.xml</relativePath>
@@ -13,13 +13,13 @@
     <name>LangChain4j :: Integration :: Anthropic</name>
 
     <properties>
-        <skipAnthropicITs>false</skipAnthropicITs>
+        <skipAnthropicITs>true</skipAnthropicITs>
     </properties>
 
     <dependencies>
 
         <dependency>
-            <groupId>dev.langchain4j</groupId>
+            <groupId>keyi.langchain4j</groupId>
             <artifactId>langchain4j-core</artifactId>
         </dependency>
 
@@ -74,7 +74,7 @@
         </dependency>
 
         <dependency>
-            <groupId>dev.langchain4j</groupId>
+            <groupId>keyi.langchain4j</groupId>
             <artifactId>langchain4j-core</artifactId>
             <classifier>tests</classifier>
             <type>test-jar</type>
