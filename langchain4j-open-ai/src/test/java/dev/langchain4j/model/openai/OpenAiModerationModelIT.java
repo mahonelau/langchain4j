@@ -2,11 +2,13 @@ package dev.langchain4j.model.openai;
 
 import dev.langchain4j.model.moderation.Moderation;
 import dev.langchain4j.model.moderation.ModerationModel;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static dev.langchain4j.model.openai.OpenAiModerationModelName.TEXT_MODERATION_LATEST;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("this test is very long and expensive, we will need to set a schedule for it to run maybe 1 time per month")
 class OpenAiModerationModelIT {
 
     ModerationModel model = OpenAiModerationModel.builder()

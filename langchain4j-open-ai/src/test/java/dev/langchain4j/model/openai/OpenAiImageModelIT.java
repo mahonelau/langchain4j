@@ -2,6 +2,7 @@ package dev.langchain4j.model.openai;
 
 import dev.langchain4j.data.image.Image;
 import dev.langchain4j.model.output.Response;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,7 @@ import java.util.List;
 import static dev.ai4j.openai4j.image.ImageModel.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("this test is very long and expensive, we will need to set a schedule for it to run maybe 1 time per month")
 class OpenAiImageModelIT {
 
     Logger log = LoggerFactory.getLogger(OpenAiImageModelIT.class);

@@ -5,6 +5,7 @@ import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.output.Response;
 import dev.langchain4j.model.output.TokenUsage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import static dev.langchain4j.model.openai.OpenAiEmbeddingModelName.TEXT_EMBEDDI
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("this test is very long and expensive, we will need to set a schedule for it to run maybe 1 time per month")
 class OpenAiEmbeddingModelIT {
 
     EmbeddingModel model = OpenAiEmbeddingModel.builder()

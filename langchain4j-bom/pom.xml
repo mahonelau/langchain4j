@@ -21,6 +21,12 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-kykms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j</artifactId>
                 <version>${project.version}</version>
             </dependency>

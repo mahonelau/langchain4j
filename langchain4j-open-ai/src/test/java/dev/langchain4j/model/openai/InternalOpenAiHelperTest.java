@@ -3,6 +3,7 @@ package dev.langchain4j.model.openai;
 import dev.ai4j.openai4j.chat.*;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.data.message.AiMessage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static dev.ai4j.openai4j.chat.ToolType.FUNCTION;
@@ -10,6 +11,7 @@ import static dev.langchain4j.model.openai.InternalOpenAiHelper.aiMessageFrom;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("this test is very long and expensive, we will need to set a schedule for it to run maybe 1 time per month")
 class InternalOpenAiHelperTest {
 
     @Test

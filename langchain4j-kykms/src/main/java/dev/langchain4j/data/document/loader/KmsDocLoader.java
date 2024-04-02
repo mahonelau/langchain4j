@@ -1,18 +1,20 @@
 package dev.langchain4j.data.document.loader;
 
 import dev.langchain4j.data.document.KmsDocument;
-import dev.langchain4j.data.document.source.KmsDocumentSource;
+import dev.langchain4j.data.document.source.KmsDocSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static dev.langchain4j.data.document.source.KmsDocumentSource.from;
+import java.util.List;
+
+import static dev.langchain4j.data.document.source.KmsDocSource.from;
 import static dev.langchain4j.internal.Exceptions.illegalArgument;
 
-public class KmsDocumentLoader {
+public class KmsDocLoader {
 
-    private static final Logger log = LoggerFactory.getLogger(KmsDocumentLoader.class);
+    private static final Logger log = LoggerFactory.getLogger(KmsDocLoader.class);
 
-    private KmsDocumentLoader() {
+    private KmsDocLoader() {
     }
 
     /**
@@ -20,18 +22,18 @@ public class KmsDocumentLoader {
      * Returned document contains all the textual information from the file.
      *
      * @param text           kms Document extracted text.
-     * @param entId          kms Document docId or fileId.
-     * @param filePath       kms Document file path.
+     * @param docId          kms Document docId.
+     * @param topicCode          kms Document topicCode.
      * @return document
      * @throws IllegalArgumentException If specified path is not a file.
      */
-    public static KmsDocument loadDocument(String text,int entType,String entId,String filePath) {
+    public static KmsDocument loadDocument(String text, String docId, List<String> topicCode, String title,int entType) {
         //entType 1:doc,2:file
-        if ((entType != 1 && entType != 2) || entId == null) {
-            throw illegalArgument("entType:%s or entId:%s is error", entType,entId);
+        if (entType != 1 || docId == null) {
+            throw illegalArgument("entType:%s or docId:%s is error", entType,  docId);
         }
 
-        return load(from(text,entType,entId,filePath));
+        return load(from(text,docId,topicCode,title,entType));
     }
 
     /**
@@ -42,7 +44,7 @@ public class KmsDocumentLoader {
      * @param source The source from which the document will be loaded.
      * @return The loaded document.
      */
-    public static KmsDocument load(KmsDocumentSource source) {
+    public static KmsDocument load(KmsDocSource source) {
         KmsDocument kmsDocument = KmsDocument.from(source);
         source.metadata().asMap().forEach((key, value) -> kmsDocument.metadata().add(key, value));
         return kmsDocument;

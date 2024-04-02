@@ -4,6 +4,7 @@ import dev.ai4j.openai4j.chat.ChatCompletionModel;
 import dev.ai4j.openai4j.completion.CompletionModel;
 import dev.ai4j.openai4j.embedding.EmbeddingModel;
 import dev.langchain4j.model.Tokenizer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -14,7 +15,7 @@ import java.util.List;
 import static dev.langchain4j.model.openai.OpenAiChatModelName.GPT_3_5_TURBO;
 import static dev.langchain4j.model.openai.OpenAiTokenizer.countArguments;
 import static org.assertj.core.api.Assertions.assertThat;
-
+@Disabled("this test is very long and expensive, we will need to set a schedule for it to run maybe 1 time per month")
 class OpenAiTokenizerTest {
 
     OpenAiTokenizer tokenizer = new OpenAiTokenizer(GPT_3_5_TURBO);

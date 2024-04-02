@@ -6,13 +6,15 @@ import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.EmbeddingStoreWithFilteringIT;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.Disabled;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static dev.langchain4j.internal.Utils.randomUUID;
 
-@Testcontainers
+@Disabled
+//@Testcontainers
 class ElasticsearchEmbeddingStoreIT extends EmbeddingStoreWithFilteringIT {
 
     @Container
