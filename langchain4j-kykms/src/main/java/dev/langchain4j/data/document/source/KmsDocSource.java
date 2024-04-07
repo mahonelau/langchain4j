@@ -34,11 +34,14 @@ public class KmsDocSource implements DocumentSource {
 
     @Override
     public Metadata metadata() {
-        return new Metadata()
+        Metadata metadata = new Metadata()
                 .add(TITLE, title)
                 .add(DOC_ID, docId)
-                .add(TOPIC_CODE, topicCode)
                 .add(ENT_TYPE, entType);
+        if(topicCode!=null && !topicCode.isEmpty())
+            metadata = metadata.add(TOPIC_CODE, topicCode);
+
+        return metadata;
     }
 
     public static KmsDocSource from(String text, String docId, List<String> topicCode,String title, int entType) {
