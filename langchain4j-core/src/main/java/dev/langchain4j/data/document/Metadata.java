@@ -4,6 +4,7 @@ import dev.langchain4j.Experimental;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 import static dev.langchain4j.internal.Exceptions.illegalArgument;
@@ -44,6 +45,9 @@ public class Metadata {
 
         SUPPORTED_VALUE_TYPES.add(double.class);
         SUPPORTED_VALUE_TYPES.add(Double.class);
+
+        SUPPORTED_VALUE_TYPES.add(String[].class);
+        SUPPORTED_VALUE_TYPES.add(ArrayList.class);
     }
 
     private final Map<String, Object> metadata;
@@ -269,6 +273,17 @@ public class Metadata {
      */
     // TODO deprecate once the new experimental API is settled
     public Metadata add(String key, Object value) {
+        if(value.getClass().isArray()) {
+//            System.out.println("value is array............................");
+            int len = Array.getLength(value);
+            if(len>0 && Array.get(value, 0).getClass().getName().equals("java.lang.String")){
+                String[] array = new String[len];
+                for (int i=0; i<len; i++) {
+                    array[i] = (String)Array.get(value, i);
+                }
+                return put(key, array);
+            }
+        }
         return put(key, value.toString());
     }
 
@@ -285,7 +300,20 @@ public class Metadata {
         this.metadata.put(key, value);
         return this;
     }
-
+    /**
+     * Adds a key-value pair to the metadata.
+     *
+     * @param key   the key
+     * @param arr value
+     * @return {@code this}
+     */
+    // TODO deprecate once the new experimental API is settled
+    public Metadata put(String key, Object[] arr) {
+        System.out.println("put Object[]........................................");
+        validate(key, arr);
+        this.metadata.put(key, arr);
+        return this;
+    }
     /**
      * Adds a key-value pair to the metadata.
      *

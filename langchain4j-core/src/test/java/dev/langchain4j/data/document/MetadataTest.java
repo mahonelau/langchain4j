@@ -326,7 +326,7 @@ class MetadataTest implements WithAssertions {
         Metadata metadata = new Metadata();
 
         // when-then
-        assertThatThrownBy(() -> metadata.put("key", null))
+        assertThatThrownBy(() -> metadata.put("key", (Object[]) null))
                 .isExactlyInstanceOf(IllegalArgumentException.class)
                 .hasMessage("The metadata value for the key 'key' cannot be null");
     }

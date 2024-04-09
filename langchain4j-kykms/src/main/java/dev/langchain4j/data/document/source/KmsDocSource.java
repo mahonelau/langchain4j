@@ -15,11 +15,11 @@ public class KmsDocSource implements DocumentSource {
     public int entType ;
     public String docId;
     public String title;
-    public List<String> topicCode;
+    public String[] topicCode;
     @Getter
     public String text;
 
-    public KmsDocSource(String text, String docId, List<String> topicCode, String title,int entType) {
+    public KmsDocSource(String text, String docId, String[] topicCode, String title,int entType) {
         this.title = title;
         this.entType = entType;
         this.docId = docId;
@@ -38,13 +38,13 @@ public class KmsDocSource implements DocumentSource {
                 .add(TITLE, title)
                 .add(DOC_ID, docId)
                 .add(ENT_TYPE, entType);
-        if(topicCode!=null && !topicCode.isEmpty())
+        if(topicCode!=null && topicCode.length>0)
             metadata = metadata.add(TOPIC_CODE, topicCode);
 
         return metadata;
     }
 
-    public static KmsDocSource from(String text, String docId, List<String> topicCode,String title, int entType) {
+    public static KmsDocSource from(String text, String docId, String[] topicCode,String title, int entType) {
         return new KmsDocSource(text,docId,topicCode,title,entType);
     }
 

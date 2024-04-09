@@ -27,7 +27,7 @@ public class KmsDocLoader {
      * @return document
      * @throws IllegalArgumentException If specified path is not a file.
      */
-    public static KmsDocument loadDocument(String text, String docId, List<String> topicCode, String title,int entType) {
+    public static KmsDocument loadDocument(String text, String docId, String[] topicCode, String title,int entType) {
         //entType 1:doc,2:file
         if (entType != 1 || docId == null) {
             throw illegalArgument("entType:%s or docId:%s is error", entType,  docId);
@@ -46,7 +46,7 @@ public class KmsDocLoader {
      */
     public static KmsDocument load(KmsDocSource source) {
         KmsDocument kmsDocument = KmsDocument.from(source);
-        source.metadata().asMap().forEach((key, value) -> kmsDocument.metadata().add(key, value));
+        source.metadata().toMap().forEach((key, value) -> kmsDocument.metadata().add(key, value));
         return kmsDocument;
 //        try (InputStream inputStream = source.inputStream()) {
 //            Document document = parser.parse(inputStream);

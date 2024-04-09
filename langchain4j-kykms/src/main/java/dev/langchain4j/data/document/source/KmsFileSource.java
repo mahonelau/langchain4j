@@ -16,11 +16,11 @@ public class KmsFileSource implements DocumentSource {
     public String fileId;
     public String docId;
     public String title;
-    public List<String> topicCode;
+    public String[] topicCode;
     @Getter
     public String text;
 
-    public KmsFileSource(String text, String fileId, String docId, List<String> topicCode,String title, int entType) {
+    public KmsFileSource(String text, String fileId, String docId, String[] topicCode,String title, int entType) {
         this.title = title;
         this.entType = entType;
         this.fileId = fileId;
@@ -40,13 +40,13 @@ public class KmsFileSource implements DocumentSource {
                 .add(TITLE, title)
                 .add(DOC_ID, docId)
                 .add(ENT_TYPE, entType);
-        if(topicCode!=null && !topicCode.isEmpty())
+        if(topicCode!=null && topicCode.length>0)
             metadata = metadata.add(TOPIC_CODE, topicCode);
 
         return metadata;
     }
 
-    public static KmsFileSource from(String text, String fileId, String docId, List<String> topicCode,String title, int entType) {
+    public static KmsFileSource from(String text, String fileId, String docId, String[] topicCode,String title, int entType) {
         return new KmsFileSource(text,fileId,docId,topicCode,title,entType);
     }
 
