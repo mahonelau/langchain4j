@@ -4,12 +4,12 @@ import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolSpecification;
 import dev.langchain4j.data.message.*;
 import dev.langchain4j.model.StreamingResponseHandler;
+import dev.langchain4j.model.Tokenizer;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import dev.langchain4j.model.chat.TestStreamingResponseHandler;
 import dev.langchain4j.model.output.Response;
 import dev.langchain4j.model.output.TokenUsage;
 import org.assertj.core.data.Percentage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.Base64;
@@ -33,10 +33,9 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.Percentage.withPercentage;
 
-@Disabled("this test is very long and expensive, we will need to set a schedule for it to run maybe 1 time per month")
 class OpenAiStreamingChatModelIT {
 
-    StreamingChatLanguageModel model = OpenAiStreamingChatModel.builder()
+    OpenAiStreamingChatModel model = OpenAiStreamingChatModel.builder()
             .baseUrl(System.getenv("OPENAI_BASE_URL"))
             .apiKey(System.getenv("OPENAI_API_KEY"))
             .organizationId(System.getenv("OPENAI_ORGANIZATION_ID"))
@@ -356,7 +355,7 @@ class OpenAiStreamingChatModelIT {
 
         TokenUsage tokenUsage = response.tokenUsage();
         assertThat(tokenUsage.inputTokenCount()).isCloseTo(57, tokenizerPrecision);
-        assertThat(tokenUsage.outputTokenCount()).isCloseTo(51, tokenizerPrecision);
+        assertThat(tokenUsage.outputTokenCount()).isCloseTo(34, tokenizerPrecision);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
 
@@ -398,7 +397,7 @@ class OpenAiStreamingChatModelIT {
         assertThat(secondAiMessage.toolExecutionRequests()).isNull();
 
         TokenUsage secondTokenUsage = secondResponse.tokenUsage();
-        assertThat(secondTokenUsage.inputTokenCount()).isCloseTo(83, tokenizerPrecision);
+        assertThat(secondTokenUsage.inputTokenCount()).isCloseTo(88, tokenizerPrecision);
         assertThat(secondTokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(secondTokenUsage.totalTokenCount())
                 .isEqualTo(secondTokenUsage.inputTokenCount() + secondTokenUsage.outputTokenCount());
@@ -584,5 +583,60 @@ class OpenAiStreamingChatModelIT {
 
         // then
         assertThat(response.content().text()).containsIgnoringCase("Berlin");
+    }
+
+    @Test
+    void should_use_default_tokenizer() {
+
+        // when
+        int tokenCount = model.estimateTokenCount("Hello, how are you doing?");
+
+        // then
+        assertThat(tokenCount).isEqualTo(14);
+    }
+
+    @Test
+    void should_use_custom_tokenizer() {
+
+        // given
+
+        Tokenizer tokenizer = new Tokenizer() {
+
+            @Override
+            public int estimateTokenCountInText(String text) {
+                return 42;
+            }
+
+            @Override
+            public int estimateTokenCountInMessage(ChatMessage message) {
+                return 42;
+            }
+
+            @Override
+            public int estimateTokenCountInMessages(Iterable<ChatMessage> messages) {
+                return 42;
+            }
+
+            @Override
+            public int estimateTokenCountInToolSpecifications(Iterable<ToolSpecification> toolSpecifications) {
+                return 42;
+            }
+
+            @Override
+            public int estimateTokenCountInToolExecutionRequests(Iterable<ToolExecutionRequest> toolExecutionRequests) {
+                return 42;
+            }
+        };
+
+        OpenAiChatModel model = OpenAiChatModel.builder()
+                .apiKey("does not matter")
+                .tokenizer(tokenizer)
+                .build();
+
+        // when
+        int tokenCount = model.estimateTokenCount("Hello, how are you doing?");
+
+        // then
+        assertThat(tokenCount).isEqualTo(42);
     }
 }

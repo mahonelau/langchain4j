@@ -5,18 +5,23 @@ import com.azure.ai.openai.models.Completions;
 import com.azure.ai.openai.models.CompletionsOptions;
 import com.azure.core.credential.KeyCredential;
 import com.azure.core.credential.TokenCredential;
+import com.azure.core.exception.HttpResponseException;
 import com.azure.core.http.ProxyOptions;
 import dev.langchain4j.model.Tokenizer;
 import dev.langchain4j.model.azure.spi.AzureOpenAiLanguageModelBuilderFactory;
 import dev.langchain4j.model.language.LanguageModel;
 import dev.langchain4j.model.language.TokenCountEstimator;
+import dev.langchain4j.model.output.FinishReason;
 import dev.langchain4j.model.output.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static dev.langchain4j.data.message.AiMessage.aiMessage;
 import static dev.langchain4j.internal.Utils.getOrDefault;
 import static dev.langchain4j.model.azure.InternalAzureOpenAiHelper.*;
 import static dev.langchain4j.spi.ServiceHelper.loadFactories;
@@ -49,6 +54,8 @@ import static dev.langchain4j.spi.ServiceHelper.loadFactories;
  * Then, provide the DefaultAzureCredential instance to the builder: `builder.tokenCredential(new DefaultAzureCredentialBuilder().build())`.
  */
 public class AzureOpenAiLanguageModel implements LanguageModel, TokenCountEstimator {
+
+    private static final Logger logger = LoggerFactory.getLogger(AzureOpenAiLanguageModel.class);
 
     private OpenAIClient client;
     private final String deploymentName;
@@ -109,7 +116,7 @@ public class AzureOpenAiLanguageModel implements LanguageModel, TokenCountEstima
                                     boolean logRequestsAndResponses) {
 
         this(deploymentName, tokenizer, maxTokens, temperature, topP, logitBias, user, n, logprobs, echo, stop, presencePenalty, frequencyPenalty, bestOf);
-        this.client = setupOpenAIClient(endpoint, serviceVersion, apiKey, timeout, maxRetries, proxyOptions, logRequestsAndResponses);
+        this.client = setupSyncClient(endpoint, serviceVersion, apiKey, timeout, maxRetries, proxyOptions, logRequestsAndResponses);
     }
 
     public AzureOpenAiLanguageModel(String endpoint,
@@ -135,7 +142,7 @@ public class AzureOpenAiLanguageModel implements LanguageModel, TokenCountEstima
                                     boolean logRequestsAndResponses) {
 
         this(deploymentName, tokenizer, maxTokens, temperature, topP, logitBias, user, n, logprobs, echo, stop, presencePenalty, frequencyPenalty, bestOf);
-        this.client = setupOpenAIClient(endpoint, serviceVersion, keyCredential, timeout, maxRetries, proxyOptions, logRequestsAndResponses);
+        this.client = setupSyncClient(endpoint, serviceVersion, keyCredential, timeout, maxRetries, proxyOptions, logRequestsAndResponses);
     }
 
     public AzureOpenAiLanguageModel(String endpoint,
@@ -161,7 +168,7 @@ public class AzureOpenAiLanguageModel implements LanguageModel, TokenCountEstima
                                     boolean logRequestsAndResponses) {
 
         this(deploymentName, tokenizer, maxTokens, temperature, topP, logitBias, user, n, logprobs, echo, stop, presencePenalty, frequencyPenalty, bestOf);
-        this.client = setupOpenAIClient(endpoint, serviceVersion, tokenCredential, timeout, maxRetries, proxyOptions, logRequestsAndResponses);
+        this.client = setupSyncClient(endpoint, serviceVersion, tokenCredential, timeout, maxRetries, proxyOptions, logRequestsAndResponses);
     }
 
     private AzureOpenAiLanguageModel(String deploymentName,
@@ -213,13 +220,22 @@ public class AzureOpenAiLanguageModel implements LanguageModel, TokenCountEstima
                 .setFrequencyPenalty(frequencyPenalty)
                 .setBestOf(bestOf);
 
-        Completions completions = client.getCompletions(deploymentName, options);
-
-        return Response.from(
-                completions.getChoices().get(0).getText(),
-                tokenUsageFrom(completions.getUsage()),
-                finishReasonFrom(completions.getChoices().get(0).getFinishReason())
-        );
+        try {
+            Completions completions = client.getCompletions(deploymentName, options);
+            return Response.from(
+                    completions.getChoices().get(0).getText(),
+                    tokenUsageFrom(completions.getUsage()),
+                    finishReasonFrom(completions.getChoices().get(0).getFinishReason())
+            );
+        } catch (HttpResponseException httpResponseException) {
+            logger.info("Error generating response, {}", httpResponseException.getValue());
+            FinishReason exceptionFinishReason = contentFilterManagement(httpResponseException, "content_filter");
+            return Response.from(
+                    httpResponseException.getMessage(),
+                    null,
+                    exceptionFinishReason
+            );
+        }
     }
 
     @Override
