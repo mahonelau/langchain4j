@@ -124,19 +124,19 @@
                             <rules>
                                 <rule>
                                     <excludes>
-                                        <exclude>dev.langchain4j.data.document</exclude>
-                                        <exclude>dev.langchain4j.store.embedding</exclude>
-                                        <exclude>dev.langchain4j.store.embedding.filter</exclude>
-                                        <exclude>dev.langchain4j.store.embedding.filter.logical</exclude>
-                                        <exclude>dev.langchain4j.store.embedding.filter.comparison</exclude>
-                                        <exclude>dev.langchain4j.rag</exclude>
-                                        <exclude>dev.langchain4j.rag.content</exclude>
-                                        <exclude>dev.langchain4j.rag.content.aggregator</exclude>
-                                        <exclude>dev.langchain4j.rag.content.injector</exclude>
-                                        <exclude>dev.langchain4j.rag.content.retriever</exclude>
-                                        <exclude>dev.langchain4j.rag.query</exclude>
-                                        <exclude>dev.langchain4j.rag.query.router</exclude>
-                                        <exclude>dev.langchain4j.rag.query.transformer</exclude>
+                                        <exclude>keyi.langchain4j.data.document</exclude>
+                                        <exclude>keyi.langchain4j.store.embedding</exclude>
+                                        <exclude>keyi.langchain4j.store.embedding.filter</exclude>
+                                        <exclude>keyi.langchain4j.store.embedding.filter.logical</exclude>
+                                        <exclude>keyi.langchain4j.store.embedding.filter.comparison</exclude>
+                                        <exclude>keyi.langchain4j.rag</exclude>
+                                        <exclude>keyi.langchain4j.rag.content</exclude>
+                                        <exclude>keyi.langchain4j.rag.content.aggregator</exclude>
+                                        <exclude>keyi.langchain4j.rag.content.injector</exclude>
+                                        <exclude>keyi.langchain4j.rag.content.retriever</exclude>
+                                        <exclude>keyi.langchain4j.rag.query</exclude>
+                                        <exclude>keyi.langchain4j.rag.query.router</exclude>
+                                        <exclude>keyi.langchain4j.rag.query.transformer</exclude>
                                     </excludes>
                                     <element>PACKAGE</element>
                                     <limits>
@@ -149,14 +149,14 @@
                                 </rule>
                                 <rule>
                                     <includes>
-                                        <include>dev.langchain4j.rag</include>
-                                        <include>dev.langchain4j.rag.content</include>
-                                        <include>dev.langchain4j.rag.content.aggregator</include>
-                                        <include>dev.langchain4j.rag.content.injector</include>
-                                        <include>dev.langchain4j.rag.content.retriever</include>
-                                        <include>dev.langchain4j.rag.query</include>
-                                        <include>dev.langchain4j.rag.query.router</include>
-                                        <include>dev.langchain4j.rag.query.transformer</include>
+                                        <include>keyi.langchain4j.rag</include>
+                                        <include>keyi.langchain4j.rag.content</include>
+                                        <include>keyi.langchain4j.rag.content.aggregator</include>
+                                        <include>keyi.langchain4j.rag.content.injector</include>
+                                        <include>keyi.langchain4j.rag.content.retriever</include>
+                                        <include>keyi.langchain4j.rag.query</include>
+                                        <include>keyi.langchain4j.rag.query.router</include>
+                                        <include>keyi.langchain4j.rag.query.transformer</include>
                                     </includes>
                                     <element>PACKAGE</element>
                                     <limits>
@@ -169,11 +169,11 @@
                                 </rule>
                                 <rule>
                                     <includes>
-                                        <include>dev.langchain4j.data.document</include>
-                                        <include>dev.langchain4j.store.embedding</include>
-                                        <include>dev.langchain4j.store.embedding.filter</include>
-                                        <include>dev.langchain4j.store.embedding.filter.logical</include>
-                                        <include>dev.langchain4j.store.embedding.filter.comparison</include>
+                                        <include>keyi.langchain4j.data.document</include>
+                                        <include>keyi.langchain4j.store.embedding</include>
+                                        <include>keyi.langchain4j.store.embedding.filter</include>
+                                        <include>keyi.langchain4j.store.embedding.filter.logical</include>
+                                        <include>keyi.langchain4j.store.embedding.filter.comparison</include>
                                     </includes>
                                     <element>PACKAGE</element>
                                     <limits>

@@ -274,7 +274,6 @@ public class Metadata {
     // TODO deprecate once the new experimental API is settled
     public Metadata add(String key, Object value) {
         if(value.getClass().isArray()) {
-//            System.out.println("value is array............................");
             int len = Array.getLength(value);
             if(len>0 && Array.get(value, 0).getClass().getName().equals("java.lang.String")){
                 String[] array = new String[len];
@@ -309,7 +308,6 @@ public class Metadata {
      */
     // TODO deprecate once the new experimental API is settled
     public Metadata put(String key, Object[] arr) {
-        System.out.println("put Object[]........................................");
         validate(key, arr);
         this.metadata.put(key, arr);
         return this;
