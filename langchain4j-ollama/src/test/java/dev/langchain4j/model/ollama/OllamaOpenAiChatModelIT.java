@@ -2,10 +2,10 @@ package dev.langchain4j.model.ollama;
 
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.UserMessage;
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.chat.response.ChatResponse;
 import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.model.output.Response;
-import dev.langchain4j.model.output.TokenUsage;
+import dev.langchain4j.model.openai.OpenAiTokenUsage;
 import org.junit.jupiter.api.Test;
 
 import static dev.langchain4j.model.ollama.OllamaImage.TINY_DOLPHIN_MODEL;
@@ -18,9 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class OllamaOpenAiChatModelIT extends AbstractOllamaLanguageModelInfrastructure {
 
-    ChatLanguageModel model = OpenAiChatModel.builder()
-            .apiKey("does not matter") // TODO make apiKey optional when using custom baseUrl?
-            .baseUrl(ollama.getEndpoint() + "/v1") // TODO add "/v1" by default?
+    ChatModel model = OpenAiChatModel.builder()
+            .baseUrl(ollamaBaseUrl(ollama) + "/v1") // TODO add "/v1" by default?
             .modelName(TINY_DOLPHIN_MODEL)
             .temperature(0.0)
             .logRequests(true)
@@ -34,17 +33,18 @@ class OllamaOpenAiChatModelIT extends AbstractOllamaLanguageModelInfrastructure 
         UserMessage userMessage = UserMessage.from("What is the capital of Germany?");
 
         // when
-        Response<AiMessage> response = model.generate(userMessage);
-        System.out.println(response);
+        ChatResponse response = model.chat(userMessage);
 
         // then
-        AiMessage aiMessage = response.content();
+        AiMessage aiMessage = response.aiMessage();
         assertThat(aiMessage.text()).contains("Berlin");
-        assertThat(aiMessage.toolExecutionRequests()).isNull();
+        assertThat(aiMessage.toolExecutionRequests()).isEmpty();
 
-        TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(35);
-        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
+        OpenAiTokenUsage tokenUsage = (OpenAiTokenUsage) response.tokenUsage();
+        assertThat(tokenUsage.inputTokenCount()).isPositive();
+        assertThat(tokenUsage.inputTokensDetails()).isNull();
+        assertThat(tokenUsage.outputTokenCount()).isPositive();
+        assertThat(tokenUsage.outputTokensDetails()).isNull();
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
 

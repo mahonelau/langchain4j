@@ -11,61 +11,46 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public abstract class WebSearchEngineIT {
 
+    protected static Integer EXPECTED_MAX_RESULTS = 7;
+
     protected abstract WebSearchEngine searchEngine();
 
     @Test
-    void should_return_web_results_with_default_constructor() {
-        // given
-        String searchTerm = "What is the current weather in New York?";
+    void should_search() {
 
         // when
-        WebSearchResults results = searchEngine().search(searchTerm);
+        WebSearchResults webSearchResults = searchEngine().search("What is LangChain4j?");
 
         // then
-        assertThat(results).isNotNull();
-        assertThat(results.searchInformation()).isNotNull();
-        assertThat(results.results()).isNotNull();
+        List<WebSearchOrganicResult> results = webSearchResults.results();
+        assertThat(results).isNotEmpty();
 
-        assertThat(results.searchInformation().totalResults()).isGreaterThan(0);
-        assertThat(results.results().size()).isGreaterThan(0);
+        results.forEach(result -> {
+            assertThat(result.title()).isNotBlank();
+            assertThat(result.url()).isNotNull();
+            assertThat(result.snippet()).isNotBlank();
+            assertThat(result.content()).isNull();
+        });
+
+        assertThat(results).anyMatch(result -> result.url().toString().contains("langchain4j"));
     }
 
     @Test
-    void should_return_web_results_with_max_results() {
+    void should_search_with_max_results() {
+
         // given
-        String searchTerm = "What is the current weather in New York?";
-        WebSearchRequest webSearchRequest = WebSearchRequest.from(searchTerm, 5);
+        int maxResults = EXPECTED_MAX_RESULTS;
 
-        // when
-        WebSearchResults results = searchEngine().search(webSearchRequest);
-
-        // then
-        assertThat(results.searchInformation().totalResults()).isGreaterThanOrEqualTo (5);
-        assertThat(results.results()).hasSize(5);
-        assertThat(results.results())
-                .as("At least one result should be contains 'weather' and 'New York' ignoring case")
-                .anySatisfy(result -> assertThat(result.snippet())
-                        .containsIgnoringCase("weather")
-                        .containsIgnoringCase("New York"));
-    }
-
-    @Test
-    void should_return_web_results_with_geolocation() {
-        // given
-        String searchTerm = "Who is the current president?";
-        WebSearchRequest webSearchRequest = WebSearchRequest.builder()
-                .searchTerms(searchTerm)
-                .geoLocation("fr")
+        WebSearchRequest request = WebSearchRequest.builder()
+                .searchTerms("What is Artificial Intelligence?")
+                .maxResults(maxResults)
                 .build();
 
         // when
-        List<WebSearchOrganicResult> webSearchOrganicResults = searchEngine().search(webSearchRequest).results();
+        WebSearchResults webSearchResults = searchEngine().search(request);
 
         // then
-        assertThat(webSearchOrganicResults).isNotNull();
-        assertThat(webSearchOrganicResults)
-                .as("At least one result should be contains 'Emmanuel Macro' ignoring case")
-                .anySatisfy(result -> assertThat(result.title())
-                        .containsIgnoringCase("Emmanuel Macro"));
+        List<WebSearchOrganicResult> results = webSearchResults.results();
+        assertThat(results).hasSizeLessThanOrEqualTo(maxResults);
     }
 }

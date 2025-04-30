@@ -1,6 +1,6 @@
 package dev.langchain4j.rag.content.injector;
 
-import dev.langchain4j.Experimental;
+import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.rag.content.Content;
 
@@ -14,15 +14,15 @@ import java.util.List;
  *
  * @see DefaultContentInjector
  */
-@Experimental
 public interface ContentInjector {
 
     /**
-     * Injects given {@link Content}s into a given {@link UserMessage}.
+     * Injects given {@link Content}s into a given {@link ChatMessage}.
      *
      * @param contents    The list of {@link Content} to be injected.
-     * @param userMessage The {@link UserMessage} into which the {@link Content}s are to be injected.
-     * @return The {@link UserMessage} with the injected {@link Content}s.
+     * @param chatMessage The {@link ChatMessage} into which the {@link Content}s are to be injected.
+     *                    Currently, only {@link UserMessage} is supported.
+     * @return The {@link ChatMessage} with the injected {@link Content}s.
      */
-    UserMessage inject(List<Content> contents, UserMessage userMessage);
+    ChatMessage inject(List<Content> contents, ChatMessage chatMessage);
 }

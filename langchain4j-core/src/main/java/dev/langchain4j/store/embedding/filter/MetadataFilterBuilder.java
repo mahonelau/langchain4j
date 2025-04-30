@@ -1,22 +1,28 @@
 package dev.langchain4j.store.embedding.filter;
 
-import dev.langchain4j.Experimental;
-import dev.langchain4j.data.document.Metadata;
-import dev.langchain4j.store.embedding.filter.comparison.*;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import static dev.langchain4j.internal.ValidationUtils.ensureNotBlank;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 
+import dev.langchain4j.data.document.Metadata;
+import dev.langchain4j.store.embedding.filter.comparison.ContainsString;
+import dev.langchain4j.store.embedding.filter.comparison.IsEqualTo;
+import dev.langchain4j.store.embedding.filter.comparison.IsGreaterThan;
+import dev.langchain4j.store.embedding.filter.comparison.IsGreaterThanOrEqualTo;
+import dev.langchain4j.store.embedding.filter.comparison.IsIn;
+import dev.langchain4j.store.embedding.filter.comparison.IsLessThan;
+import dev.langchain4j.store.embedding.filter.comparison.IsLessThanOrEqualTo;
+import dev.langchain4j.store.embedding.filter.comparison.IsNotEqualTo;
+import dev.langchain4j.store.embedding.filter.comparison.IsNotIn;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+
 /**
  * A helper class for building a {@link Filter} for {@link Metadata} key.
  */
-@Experimental
 public class MetadataFilterBuilder {
 
     private final String key;
@@ -25,15 +31,23 @@ public class MetadataFilterBuilder {
         this.key = ensureNotBlank(key, "key");
     }
 
-    @Experimental
     public static MetadataFilterBuilder metadataKey(String key) {
         return new MetadataFilterBuilder(key);
     }
 
+    // containsString
+
+    public Filter containsString(String value) {
+        return new ContainsString(key, value);
+    }
 
     // isEqualTo
 
     public Filter isEqualTo(String value) {
+        return new IsEqualTo(key, value);
+    }
+
+    public Filter isEqualTo(UUID value) {
         return new IsEqualTo(key, value);
     }
 
@@ -53,10 +67,13 @@ public class MetadataFilterBuilder {
         return new IsEqualTo(key, value);
     }
 
-
     // isNotEqualTo
 
     public Filter isNotEqualTo(String value) {
+        return new IsNotEqualTo(key, value);
+    }
+
+    public Filter isNotEqualTo(UUID value) {
         return new IsNotEqualTo(key, value);
     }
 
@@ -75,7 +92,6 @@ public class MetadataFilterBuilder {
     public Filter isNotEqualTo(double value) {
         return new IsNotEqualTo(key, value);
     }
-
 
     // isGreaterThan
 
@@ -99,7 +115,6 @@ public class MetadataFilterBuilder {
         return new IsGreaterThan(key, value);
     }
 
-
     // isGreaterThanOrEqualTo
 
     public Filter isGreaterThanOrEqualTo(String value) {
@@ -121,7 +136,6 @@ public class MetadataFilterBuilder {
     public Filter isGreaterThanOrEqualTo(double value) {
         return new IsGreaterThanOrEqualTo(key, value);
     }
-
 
     // isLessThan
 
@@ -145,7 +159,6 @@ public class MetadataFilterBuilder {
         return new IsLessThan(key, value);
     }
 
-
     // isLessThanOrEqualTo
 
     public Filter isLessThanOrEqualTo(String value) {
@@ -167,7 +180,6 @@ public class MetadataFilterBuilder {
     public Filter isLessThanOrEqualTo(double value) {
         return new IsLessThanOrEqualTo(key, value);
     }
-
 
     // isBetween
 
@@ -191,10 +203,13 @@ public class MetadataFilterBuilder {
         return isGreaterThanOrEqualTo(fromValue).and(isLessThanOrEqualTo(toValue));
     }
 
-
     // isIn
 
     public Filter isIn(String... values) {
+        return new IsIn(key, asList(values));
+    }
+
+    public Filter isIn(UUID... values) {
         return new IsIn(key, asList(values));
     }
 
@@ -222,10 +237,13 @@ public class MetadataFilterBuilder {
         return new IsIn(key, values);
     }
 
-
     // isNotIn
 
     public Filter isNotIn(String... values) {
+        return new IsNotIn(key, asList(values));
+    }
+
+    public Filter isNotIn(UUID... values) {
         return new IsNotIn(key, asList(values));
     }
 

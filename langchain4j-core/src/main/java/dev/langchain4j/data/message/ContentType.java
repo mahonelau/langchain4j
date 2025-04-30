@@ -5,14 +5,31 @@ package dev.langchain4j.data.message;
  * Maps to implementations of {@link Content}.
  */
 public enum ContentType {
+
     /**
      * Text content.
      */
     TEXT(TextContent.class),
+
     /**
      * Image content.
      */
-    IMAGE(ImageContent.class);
+    IMAGE(ImageContent.class),
+
+    /**
+     * Audio content.
+     */
+    AUDIO(AudioContent.class),
+
+    /**
+     * Video content.
+     */
+    VIDEO(VideoContent.class),
+
+    /**
+     * PDF file content.
+     */
+    PDF(PdfFileContent.class);
 
     private final Class<? extends Content> contentClass;
 
@@ -22,6 +39,7 @@ public enum ContentType {
 
     /**
      * Returns the class of the content type.
+     *
      * @return The class of the content type.
      */
     public Class<? extends Content> getContentClass() {

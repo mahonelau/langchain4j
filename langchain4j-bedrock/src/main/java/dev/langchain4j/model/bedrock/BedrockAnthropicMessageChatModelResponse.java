@@ -9,13 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Bedrock Anthropic Messages API Invoke response
- * <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-anthropic-claude-messages.html">...</a>
+ * @deprecated please use {@link BedrockChatModel}
  */
+@Deprecated(forRemoval = true, since = "1.0.0-beta2")
 @Getter
 @Setter
 public class BedrockAnthropicMessageChatModelResponse implements BedrockChatModelResponse {
-    
+
     private String id;
     private String model;
     private String type;
@@ -24,7 +24,7 @@ public class BedrockAnthropicMessageChatModelResponse implements BedrockChatMode
     private String stop_reason;
     private String stop_sequence;
     private BedrockAnthropicUsage usage;
-    
+
     @Getter
     @Setter
     public static class BedrockAnthropicUsage {
@@ -45,6 +45,8 @@ public class BedrockAnthropicMessageChatModelResponse implements BedrockChatMode
             return FinishReason.STOP;
           case "max_tokens":
                 return FinishReason.LENGTH;
+            case "tool_use":
+                return FinishReason.TOOL_EXECUTION;
             default:
                 throw new IllegalArgumentException("Unknown stop reason: " + stop_reason);
         }

@@ -1,12 +1,20 @@
 ---
-sidebar_position: 7
+sidebar_position: 9
 ---
 
 # Google Vertex AI PaLM 2
 
+:::note
+The "Bison" models have been discontinued by Google.
+Thus, `VertexAiChatModel` and `VertexAiLanguageModel` are now deprecated and will be removed
+in future versions.
+Please use one of the "Gemini" models with `VertexAiGeminiChatModel`
+from the [`langchain4j-vertex-ai-gemini`](/integrations/language-models/google-vertex-ai-gemini) module instead.
+:::
+
 ## Get started
 
-To get started follow the steps outlined in the `Get started` section of [Vertex AI Gemini integration tutorial](/integrations/language-models/google-gemini) to create a 
+To get started follow the steps outlined in the `Get started` section of [Vertex AI Gemini integration tutorial](/integrations/language-models/google-vertex-ai-gemini) to create a 
 Google Cloud Platform account and establish a new project with access to Vertex AI API.
 
 ## Add dependencies
@@ -17,14 +25,14 @@ Add the following dependencies to your project's `pom.xml`:
 <dependency>
   <groupId>dev.langchain4j</groupId>
   <artifactId>langchain4j-vertex-ai</artifactId>
-  <version>{your-version}</version> <!-- Specify langchain4j version here -->
+  <version>1.0.0-beta3</version>
 </dependency>
 ```
 
 or project's `build.gradle`:
 
 ```groovy
-implementation 'dev.langchain4j:langchain4j-vertex-ai:{your-version}'
+implementation 'dev.langchain4j:langchain4j-vertex-ai:1.0.0-beta3'
 ```
 
 ### Try out an example code:
@@ -36,18 +44,18 @@ The `PROJECT_ID` field represents the variable you set when creating a new Googl
 ```java
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.UserMessage;
-import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.output.Response;
 import dev.langchain4j.model.vertexai.VertexAiChatModel;
 
-public class ChatLanguageModel {
+public class ChatModelExample {
 
     private static final String PROJECT_ID = "YOUR-PROJECT-ID";
     // `chat-bison` means PaLM2 general purpose chat model
     private static final String MODEL_NAME = "chat-bison";
 
     public static void main(String[] args) {
-        ChatLanguageModel model = VertexAiChatModel.builder()
+        ChatModel model = VertexAiChatModel.builder()
             .endpoint("us-central1-aiplatform.googleapis.com:443")
             .location("us-central1")
             .publisher("google")
@@ -56,13 +64,13 @@ public class ChatLanguageModel {
             .temperature(0.0)
             .build();
 
-        Response<AiMessage> response = model.generate(
+        ChatResponse response = model.chat(
             UserMessage.from(
                 "Describe in several sentences what language model you are: \n" +
                 "Describe in several sentences what is your code name: "
             )
         );
-        System.out.println(response.content().text());
+        System.out.println(response.aiMessage().text());
 
         // I am a large language model, trained by Google. 
         // I am a transformer-based language model that has been trained 
@@ -106,3 +114,9 @@ Use the `VertexAiLanguageModel` [class](https://github.com/langchain4j/langchain
 [Model naming explanation](https://cloud.google.com/vertex-ai/generative-ai/docs/language-model-overview#model_naming_scheme)
 
 [Available PalM stable versions](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versioning#palm-stable-versions-available)
+
+
+## Examples
+
+- [VertexAiChatModelIT](https://github.com/langchain4j/langchain4j/blob/main/langchain4j-vertex-ai/src/test/java/dev/langchain4j/model/vertexai/VertexAiChatModelIT.java)
+- [VertexAiLanguageModelIT](https://github.com/langchain4j/langchain4j/blob/main/langchain4j-vertex-ai/src/test/java/dev/langchain4j/model/vertexai/VertexAiLanguageModelIT.java)

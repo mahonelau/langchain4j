@@ -1,5 +1,6 @@
 package dev.langchain4j.model.input;
 
+import dev.langchain4j.Internal;
 import dev.langchain4j.spi.prompt.PromptTemplateFactory;
 
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 import static dev.langchain4j.internal.Exceptions.illegalArgument;
 import static dev.langchain4j.internal.ValidationUtils.ensureNotBlank;
 
+@Internal
 class DefaultPromptTemplateFactory implements PromptTemplateFactory {
 
     @Override
@@ -20,7 +22,8 @@ class DefaultPromptTemplateFactory implements PromptTemplateFactory {
 
     static class DefaultTemplate implements Template {
 
-        private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\{\\{(.+?)}}");
+        @SuppressWarnings("RegExpRedundantEscape")
+        private static final Pattern VARIABLE_PATTERN = Pattern.compile("\\{\\{(.+?)\\}\\}");
 
         private final String template;
         private final Set<String> allVariables;

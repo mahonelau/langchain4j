@@ -4,7 +4,7 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -59,12 +59,16 @@ const config = {
                 theme: {
                     customCss: './src/css/custom.css',
                 },
+                gtag: {
+                    trackingID: 'G-ZK8CM68FC9',
+                    anonymizeIP: true,
+                },
             }),
         ],
     ],
 
     themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+        /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
             // Replace with your project's social card
             image: 'img/docusaurus-social-card.jpg',
@@ -86,15 +90,20 @@ const config = {
                         position: 'left',
                         label: 'Introduction',
                     },
-                    {to: '/get-started', label: 'Get Started', position: 'left'},
-                    {to: '/category/tutorials', label: 'Tutorials', position: 'left'},
+                    { to: '/get-started', label: 'Get Started', position: 'left' },
+                    { to: '/category/tutorials', label: 'Tutorials', position: 'left' },
+                    { to: '/category/integrations', label: 'Integrations', position: 'left' },
+                    { to: '/useful-materials', label: 'Useful Materials', position: 'left' },
                     {
                         href: 'https://github.com/langchain4j/langchain4j-examples',
                         label: 'Examples',
                         position: 'left',
                     },
-                    {to: '/category/integrations', label: 'Integrations', position: 'left'},
-                    {to: '/useful-materials', label: 'Useful Materials', position: 'left'},
+                    {
+                        href: 'https://chat.langchain4j.dev/',
+                        label: 'Docu chatbot',
+                        position: 'left',
+                    },
                     {
                         href: 'https://docs.langchain4j.dev/apidocs/index.html',
                         label: 'Javadoc',
@@ -103,7 +112,17 @@ const config = {
                     {
                         href: 'https://github.com/langchain4j/langchain4j',
                         label: 'GitHub',
-                        position: 'left',
+                        position: 'right',
+                    },
+                    {
+                        href: 'https://twitter.com/langchain4j',
+                        label: 'Twitter',
+                        position: 'right',
+                    },
+                    {
+                        href: 'https://discord.com/invite/JzTFvyjG6R',
+                        label: 'Discord',
+                        position: 'right',
                     },
                 ],
             },
@@ -126,10 +145,6 @@ const config = {
                                 to: '/category/tutorials',
                             },
                             {
-                                label: 'Examples',
-                                href: 'https://github.com/langchain4j/langchain4j-examples',
-                            },
-                            {
                                 label: 'Integrations',
                                 to: '/category/integrations',
                             },
@@ -137,11 +152,27 @@ const config = {
                                 label: 'Useful Materials',
                                 to: '/useful-materials',
                             },
+                            {
+                                label: 'Examples',
+                                href: 'https://github.com/langchain4j/langchain4j-examples',
+                            },
+                            {
+                                label: 'Documentation chatbot (experimental)',
+                                href: 'https://chat.langchain4j.dev/',
+                            },
+                            {
+                                label: 'Javadoc',
+                                href: 'https://docs.langchain4j.dev/apidocs/index.html',
+                            },
                         ],
                     },
                     {
                         title: 'Community',
                         items: [
+                            {
+                                label: 'GitHub',
+                                href: 'https://github.com/langchain4j/langchain4j',
+                            },
                             {
                                 label: 'Twitter',
                                 href: 'https://twitter.com/langchain4j',
@@ -156,19 +187,6 @@ const config = {
                             },
                         ],
                     },
-                    {
-                        title: 'More',
-                        items: [
-                            {
-                                label: 'GitHub',
-                                href: 'https://github.com/langchain4j/langchain4j',
-                            },
-                            {
-                                label: "Examples",
-                                href: 'https://github.com/langchain4j/langchain4j-examples'
-                            }
-                        ],
-                    },
                 ],
                 copyright: `LangChain4j Documentation ${new Date().getFullYear()}. Built with Docusaurus.`,
             },
@@ -181,7 +199,8 @@ const config = {
     markdown: {
         mermaid: true,
     },
-    themes: ['@docusaurus/theme-mermaid']
+    themes: ['@docusaurus/theme-mermaid'],
+    plugins: [require.resolve("docusaurus-lunr-search")]
 };
 
 export default config;

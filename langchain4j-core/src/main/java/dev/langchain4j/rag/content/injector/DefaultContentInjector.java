@@ -1,21 +1,23 @@
 package dev.langchain4j.rag.content.injector;
 
+import static dev.langchain4j.internal.Utils.copy;
+import static dev.langchain4j.internal.Utils.getOrDefault;
+import static dev.langchain4j.internal.Utils.isNotNullOrBlank;
+import static dev.langchain4j.internal.Utils.isNullOrEmpty;
+import static dev.langchain4j.internal.ValidationUtils.ensureNotEmpty;
+import static dev.langchain4j.internal.ValidationUtils.ensureNotNull;
+import static java.util.stream.Collectors.joining;
+
 import dev.langchain4j.data.document.Metadata;
+import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.input.Prompt;
 import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.rag.content.Content;
-import lombok.Builder;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static dev.langchain4j.internal.Utils.*;
-import static dev.langchain4j.internal.ValidationUtils.ensureNotEmpty;
-import static dev.langchain4j.internal.ValidationUtils.ensureNotNull;
-import static java.util.stream.Collectors.joining;
 
 /**
  * Default implementation of {@link ContentInjector} intended to be suitable for the majority of use cases.
@@ -36,6 +38,7 @@ import static java.util.stream.Collectors.joining;
  * <br>
  * - {@link #promptTemplate}: The prompt template that defines how the original {@code userMessage}
  * and {@code contents} are combined into the resulting {@link UserMessage}.
+ * The text of the template should contain the {@code {{userMessage}}} and {@code {{contents}}} variables.
  * <br>
  * - {@link #metadataKeysToInclude}: A list of {@link Metadata} keys that should be included
  * with each {@link Content#textSegment()}.
@@ -43,11 +46,11 @@ import static java.util.stream.Collectors.joining;
 public class DefaultContentInjector implements ContentInjector {
 
     public static final PromptTemplate DEFAULT_PROMPT_TEMPLATE = PromptTemplate.from(
-            "{{userMessage}}\n" +
-                    "\n" +
-                    "Answer using the following information:\n" +
-                    "{{contents}}"
-    );
+            """
+                    {{userMessage}}
+
+                    Answer using the following information:
+                    {{contents}}""");
 
     private final PromptTemplate promptTemplate;
     private final List<String> metadataKeysToInclude;
@@ -64,41 +67,46 @@ public class DefaultContentInjector implements ContentInjector {
         this(ensureNotNull(promptTemplate, "promptTemplate"), null);
     }
 
-    @Builder
     public DefaultContentInjector(PromptTemplate promptTemplate, List<String> metadataKeysToInclude) {
         this.promptTemplate = getOrDefault(promptTemplate, DEFAULT_PROMPT_TEMPLATE);
-        this.metadataKeysToInclude = copyIfNotNull(metadataKeysToInclude);
+        this.metadataKeysToInclude = copy(metadataKeysToInclude);
+    }
+
+    public static DefaultContentInjectorBuilder builder() {
+        return new DefaultContentInjectorBuilder();
     }
 
     @Override
-    public UserMessage inject(List<Content> contents, UserMessage userMessage) {
+    public ChatMessage inject(List<Content> contents, ChatMessage chatMessage) {
 
         if (contents.isEmpty()) {
-            return userMessage;
+            return chatMessage;
         }
 
-        Prompt prompt = createPrompt(userMessage, contents);
+        Prompt prompt = createPrompt(chatMessage, contents);
+        if (chatMessage instanceof UserMessage message && isNotNullOrBlank(message.name())) {
+            return prompt.toUserMessage(message.name());
+        }
+
         return prompt.toUserMessage();
     }
 
-    protected Prompt createPrompt(UserMessage userMessage, List<Content> contents) {
+    protected Prompt createPrompt(ChatMessage chatMessage, List<Content> contents) {
         Map<String, Object> variables = new HashMap<>();
-        variables.put("userMessage", userMessage.text());
+        variables.put("userMessage", ((UserMessage) chatMessage).singleText());
         variables.put("contents", format(contents));
         return promptTemplate.apply(variables);
     }
 
     protected String format(List<Content> contents) {
-        return contents.stream()
-                .map(this::format)
-                .collect(joining("\n\n"));
+        return contents.stream().map(this::format).collect(joining("\n\n"));
     }
 
     protected String format(Content content) {
 
         TextSegment segment = content.textSegment();
 
-        if (isNullOrEmpty(metadataKeysToInclude)) {
+        if (metadataKeysToInclude.isEmpty()) {
             return segment.text();
         }
 
@@ -111,9 +119,9 @@ public class DefaultContentInjector implements ContentInjector {
     protected String format(Metadata metadata) {
         StringBuilder formattedMetadata = new StringBuilder();
         for (String metadataKey : metadataKeysToInclude) {
-            String metadataValue = metadata.get(metadataKey);
+            String metadataValue = metadata.getString(metadataKey);
             if (metadataValue != null) {
-                if (formattedMetadata.length() > 0) {
+                if (!formattedMetadata.isEmpty()) {
                     formattedMetadata.append("\n");
                 }
                 formattedMetadata.append(metadataKey).append(": ").append(metadataValue);
@@ -126,5 +134,27 @@ public class DefaultContentInjector implements ContentInjector {
         return segmentMetadata.isEmpty()
                 ? segmentContent
                 : String.format("content: %s\n%s", segmentContent, segmentMetadata);
+    }
+
+    public static class DefaultContentInjectorBuilder {
+
+        private PromptTemplate promptTemplate;
+        private List<String> metadataKeysToInclude;
+
+        DefaultContentInjectorBuilder() {}
+
+        public DefaultContentInjectorBuilder promptTemplate(PromptTemplate promptTemplate) {
+            this.promptTemplate = promptTemplate;
+            return this;
+        }
+
+        public DefaultContentInjectorBuilder metadataKeysToInclude(List<String> metadataKeysToInclude) {
+            this.metadataKeysToInclude = metadataKeysToInclude;
+            return this;
+        }
+
+        public DefaultContentInjector build() {
+            return new DefaultContentInjector(this.promptTemplate, this.metadataKeysToInclude);
+        }
     }
 }

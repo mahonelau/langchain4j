@@ -1,22 +1,25 @@
 package dev.langchain4j.internal;
 
+import dev.langchain4j.Internal;
 import dev.langchain4j.spi.json.JsonCodecFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.lang.reflect.Type;
 
 import static dev.langchain4j.spi.ServiceHelper.loadFactories;
 
 /**
- * A utility class for JSON.
+ * JSON helper class. It is supposed to be used by "tools" and "structured output" functionalities.
  */
+@Internal
 public class Json {
+
     private Json() {
     }
 
     /**
      * The abstract JSON codec interface.
      */
+    @Internal
     public interface JsonCodec {
 
         /**
@@ -28,6 +31,16 @@ public class Json {
         String toJson(Object o);
 
         /**
+         * Convert the given JSON string to an object of the given class.
+         *
+         * @param json the JSON string.
+         * @param type the class of the object.
+         * @param <T>  the type of the object.
+         * @return the object.
+         */
+        <T> T fromJson(String json, Class<T> type);
+
+        /**
          * Convert the given JSON string to an object of the given type.
          *
          * @param json the JSON string.
@@ -35,17 +48,7 @@ public class Json {
          * @param <T>  the type of the object.
          * @return the object.
          */
-        <T> T fromJson(String json, Class<T> type);
-
-        /**
-         * Convert the given object to an {@link InputStream}.
-         *
-         * @param o    the object to convert.
-         * @param type the type of the object.
-         * @return the {@link InputStream}.
-         * @throws IOException if an I/O error occurs.
-         */
-        InputStream toInputStream(Object o, Class<?> type) throws IOException;
+        <T> T fromJson(String json, Type type);
     }
 
     private static final JsonCodec CODEC = loadCodec();
@@ -54,7 +57,7 @@ public class Json {
         for (JsonCodecFactory factory : loadFactories(JsonCodecFactory.class)) {
             return factory.create();
         }
-        return new GsonJsonCodec();
+        return new JacksonJsonCodec();
     }
 
     /**
@@ -68,10 +71,10 @@ public class Json {
     }
 
     /**
-     * Convert the given JSON string to an object of the given type.
+     * Convert the given JSON string to an object of the given class.
      *
      * @param json the JSON string.
-     * @param type the type of the object.
+     * @param type the class of the object.
      * @param <T>  the type of the object.
      * @return the object.
      */
@@ -80,14 +83,14 @@ public class Json {
     }
 
     /**
-     * Convert the given object to an {@link InputStream}.
+     * Convert the given JSON string to an object of the given type.
      *
-     * @param o    the object to convert.
+     * @param json the JSON string.
      * @param type the type of the object.
-     * @return the {@link InputStream}.
-     * @throws IOException if an I/O error occurs.
+     * @param <T>  the type of the object.
+     * @return the object.
      */
-    public static InputStream toInputStream(Object o, Class<?> type) throws IOException {
-        return CODEC.toInputStream(o, type);
+    public static <T> T fromJson(String json, Type type) {
+        return CODEC.fromJson(json, type);
     }
 }

@@ -32,7 +32,7 @@ class DefaultContentInjectorTest {
         ContentInjector injector = new DefaultContentInjector();
 
         // when
-        UserMessage injected = injector.inject(contents, userMessage);
+        UserMessage injected = (UserMessage) injector.inject(contents, userMessage);
 
         // then
         assertThat(injected).isEqualTo(userMessage);
@@ -49,15 +49,38 @@ class DefaultContentInjectorTest {
         ContentInjector injector = new DefaultContentInjector();
 
         // when
-        UserMessage injected = injector.inject(contents, userMessage);
+        UserMessage injected = (UserMessage) injector.inject(contents, userMessage);
 
         // then
-        assertThat(injected.text()).isEqualTo(
-                "Tell me about bananas.\n" +
-                        "\n" +
-                        "Answer using the following information:\n" +
-                        "Bananas are awesome!"
+        assertThat(injected.singleText()).isEqualTo("""
+                Tell me about bananas.
+                
+                Answer using the following information:
+                Bananas are awesome!""".stripIndent()
         );
+    }
+
+    @Test
+    void should_inject_single_content_with_userName() {
+        // given
+        UserMessage userMessage = UserMessage.from("ape", "Tell me about bananas.");
+
+        List<Content> contents = singletonList(Content.from("Bananas are awesome!"));
+
+        ContentInjector injector = new DefaultContentInjector();
+
+        // when
+        UserMessage injected = (UserMessage) injector.inject(contents, userMessage);
+
+        // then
+        assertThat(injected.singleText()).isEqualTo(
+                """
+                        Tell me about bananas.
+                        
+                        Answer using the following information:
+                        Bananas are awesome!"""
+        );
+        assertThat(injected.name()).isEqualTo("ape");
     }
 
     @Test
@@ -77,15 +100,16 @@ class DefaultContentInjectorTest {
         ContentInjector injector = new DefaultContentInjector(metadataKeysToInclude);
 
         // when
-        UserMessage injected = injector.inject(contents, userMessage);
+        UserMessage injected = (UserMessage) injector.inject(contents, userMessage);
 
         // then
-        assertThat(injected.text()).isEqualTo(
-                "Tell me about bananas.\n" +
-                        "\n" +
-                        "Answer using the following information:\n" +
-                        "content: Bananas are awesome!\n" +
-                        "source: trust me bro"
+        assertThat(injected.singleText()).isEqualTo(
+                """
+                        Tell me about bananas.
+                        
+                        Answer using the following information:
+                        content: Bananas are awesome!
+                        source: trust me bro"""
         );
     }
 
@@ -103,16 +127,17 @@ class DefaultContentInjectorTest {
         ContentInjector injector = new DefaultContentInjector();
 
         // when
-        UserMessage injected = injector.inject(contents, userMessage);
+        UserMessage injected = (UserMessage) injector.inject(contents, userMessage);
 
         // then
-        assertThat(injected.text()).isEqualTo(
-                "Tell me about bananas.\n" +
-                        "\n" +
-                        "Answer using the following information:\n" +
-                        "Bananas are awesome!\n" +
-                        "\n" +
-                        "Bananas are healthy!"
+        assertThat(injected.singleText()).isEqualTo(
+                """
+                        Tell me about bananas.
+                        
+                        Answer using the following information:
+                        Bananas are awesome!
+                        
+                        Bananas are healthy!"""
         );
     }
 
@@ -128,12 +153,12 @@ class DefaultContentInjectorTest {
         TextSegment segment1 = TextSegment.from(
                 "Bananas are awesome!",
                 Metadata.from("source", "trust me bro")
-                        .add("date", "today")
+                        .put("date", "today")
         );
         TextSegment segment2 = TextSegment.from(
                 "Bananas are healthy!",
                 Metadata.from("source", "my doctor")
-                        .add("reliability", "100%")
+                        .put("reliability", "100%")
         );
         List<Content> contents = asList(Content.from(segment1), Content.from(segment2));
 
@@ -142,20 +167,21 @@ class DefaultContentInjectorTest {
         ContentInjector injector = contentInjectorProvider.apply(metadataKeysToInclude);
 
         // when
-        UserMessage injected = injector.inject(contents, userMessage);
+        UserMessage injected = (UserMessage) injector.inject(contents, userMessage);
 
         // then
-        assertThat(injected.text()).isEqualTo(
-                "Tell me about bananas.\n" +
-                        "\n" +
-                        "Answer using the following information:\n" +
-                        "content: Bananas are awesome!\n" +
-                        "source: trust me bro\n" +
-                        "date: today\n" +
-                        "\n" +
-                        "content: Bananas are healthy!\n" +
-                        "source: my doctor\n" +
-                        "reliability: 100%"
+        assertThat(injected.singleText()).isEqualTo(
+                """
+                        Tell me about bananas.
+                        
+                        Answer using the following information:
+                        content: Bananas are awesome!
+                        source: trust me bro
+                        date: today
+                        
+                        content: Bananas are healthy!
+                        source: my doctor
+                        reliability: 100%"""
         );
     }
 
@@ -189,14 +215,15 @@ class DefaultContentInjectorTest {
         ContentInjector injector = contentInjectorProvider.apply(promptTemplate);
 
         // when
-        UserMessage injected = injector.inject(contents, userMessage);
+        UserMessage injected = (UserMessage) injector.inject(contents, userMessage);
 
         // then
-        assertThat(injected.text()).isEqualTo(
-                "Tell me about bananas.\n" +
-                        "Bananas are awesome!\n" +
-                        "\n" +
-                        "Bananas are healthy!"
+        assertThat(injected.singleText()).isEqualTo(
+                """
+                        Tell me about bananas.
+                        Bananas are awesome!
+                        
+                        Bananas are healthy!"""
         );
     }
 

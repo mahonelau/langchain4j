@@ -3,11 +3,13 @@ package dev.langchain4j.web.search;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.segment.TextSegment;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static dev.langchain4j.internal.ValidationUtils.ensureNotEmpty;
+import static dev.langchain4j.internal.Utils.copy;
+import static dev.langchain4j.internal.Utils.isNullOrEmpty;
 import static dev.langchain4j.internal.ValidationUtils.ensureNotNull;
 import static java.util.stream.Collectors.toList;
 
@@ -35,7 +37,7 @@ public class WebSearchResults {
      * @param results           The list of organic search results.
      */
     public WebSearchResults(WebSearchInformationResult searchInformation, List<WebSearchOrganicResult> results) {
-        this(null, searchInformation, results);
+        this(Map.of(), searchInformation, results);
     }
 
     /**
@@ -45,10 +47,12 @@ public class WebSearchResults {
      * @param searchInformation The information about the web search.
      * @param results           The list of organic search results.
      */
-    public WebSearchResults(Map<String, Object> searchMetadata, WebSearchInformationResult searchInformation, List<WebSearchOrganicResult> results) {
-        this.searchMetadata = searchMetadata;
+    public WebSearchResults(Map<String, Object> searchMetadata,
+                            WebSearchInformationResult searchInformation,
+                            List<WebSearchOrganicResult> results) {
+        this.searchMetadata = copy(searchMetadata);
         this.searchInformation = ensureNotNull(searchInformation, "searchInformation");
-        this.results = ensureNotEmpty(results, "results");
+        this.results = copy(results);
     }
 
     /**

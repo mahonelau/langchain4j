@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-parent</artifactId>
-        <version>0.31.0-SNAPSHOT</version>
+        <version>1.0.0-beta4-SNAPSHOT</version>
         <relativePath>../langchain4j-parent/pom.xml</relativePath>
     </parent>
 
@@ -39,6 +37,30 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-kotlin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-http-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-http-client-jdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-reactor</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j-easy-rag</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -47,7 +69,7 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-open-ai</artifactId>
+                <artifactId>langchain4j-anthropic</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -59,13 +81,85 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-bedrock</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-cohere</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-github-models</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j-hugging-face</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-jlama</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-jina</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-onnx-scoring</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j-local-ai</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-mistral-ai</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-nomic</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-ollama</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-open-ai</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-open-ai-official</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-ovh-ai</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -83,65 +177,35 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-dashscope</artifactId>
+                <artifactId>langchain4j-google-ai-gemini</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-qianfan</artifactId>
+                <artifactId>langchain4j-workers-ai</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-zhipu-ai</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-ollama</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-bedrock</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-chatglm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-mistral-ai</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-cohere</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-nomic</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-anthropic</artifactId>
+                <artifactId>langchain4j-voyage-ai</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- embedding stores -->
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-azure-ai-search</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-azure-cosmos-mongo-vcore</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
@@ -152,6 +216,18 @@
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j-chroma</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-coherence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-couchbase</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -169,7 +245,25 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-mariadb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-mcp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j-milvus</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-mongodb-atlas</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -199,7 +293,7 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-redis</artifactId>
+                <artifactId>langchain4j-tablestore</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -217,23 +311,23 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-neo4j</artifactId>
+                <artifactId>langchain4j-azure-cosmos-nosql</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-vearch</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-mongodb-atlas</artifactId>
+                <artifactId>langchain4j-oracle</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- embeddings -->
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-embeddings</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
@@ -261,7 +355,7 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-embeddings-bge-small-v15-en</artifactId>
+                <artifactId>langchain4j-embeddings-bge-small-en-v15</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -285,6 +379,18 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-embeddings-bge-small-zh-v15</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-embeddings-bge-small-zh-v15-q</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j-embeddings-e5-small-v2</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -303,17 +409,23 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-code-execution-engine-judge0</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- document loaders -->
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-document-loader-tencent-cos</artifactId>
+                <artifactId>langchain4j-document-loader-amazon-s3</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-document-loader-amazon-s3</artifactId>
+                <artifactId>langchain4j-document-loader-azure-storage-blob</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -325,7 +437,19 @@
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
-                <artifactId>langchain4j-document-loader-azure-storage-blob</artifactId>
+                <artifactId>langchain4j-document-loader-selenium</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-document-loader-tencent-cos</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-document-loader-google-cloud-storage</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -349,11 +473,80 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- document transformers -->
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-document-transformer-jsoup</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- embedding store filter parsers -->
 
             <dependency>
                 <groupId>keyi.langchain4j</groupId>
                 <artifactId>langchain4j-embedding-store-filter-parser-sql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- web searchers -->
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-web-search-engine-google-custom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-web-search-engine-tavily</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-web-search-engine-searchapi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- experimental -->
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-experimental-sql</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- spring boot -->
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-anthropic-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-azure-ai-search-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-azure-open-ai-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-ollama-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>keyi.langchain4j</groupId>
+                <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

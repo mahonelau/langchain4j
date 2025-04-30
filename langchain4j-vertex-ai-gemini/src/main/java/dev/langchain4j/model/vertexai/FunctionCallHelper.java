@@ -1,13 +1,12 @@
 package dev.langchain4j.model.vertexai;
 
 import com.google.cloud.vertexai.api.*;
+import com.google.gson.Gson;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Struct;
 import com.google.protobuf.Value;
 import com.google.protobuf.util.JsonFormat;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
-import dev.langchain4j.agent.tool.ToolExecutionRequestUtil;
-import dev.langchain4j.agent.tool.ToolParameters;
 import dev.langchain4j.agent.tool.ToolSpecification;
 
 import java.util.ArrayList;
@@ -17,25 +16,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 class FunctionCallHelper {
-    static Type fromType(String type) {
-        //TODO: is it covering all the types correctly?
-        switch (type) {
-            case "string":
-                return Type.STRING;
-            case "integer":
-                return Type.INTEGER;
-            case "boolean":
-                return Type.BOOLEAN;
-            case "number":
-                return Type.NUMBER;
-            case "array":
-                return Type.ARRAY;
-            case "object":
-                return Type.OBJECT;
-            default:
-                return Type.TYPE_UNSPECIFIED;
-        }
-    }
+
+    private static final Gson GSON = new Gson();
 
     static FunctionCall fromToolExecutionRequest(ToolExecutionRequest toolExecutionRequest) {
         FunctionCall.Builder fnCallBuilder = FunctionCall.newBuilder()
@@ -65,7 +47,7 @@ class FunctionCallHelper {
             Map<String, Value> callArgsFieldsMap = callArgs.getFieldsMap();
             callArgsFieldsMap.forEach((key, value) -> callArgsMap.put(key, unwrapProtoValue(value)));
 
-            String serializedArgsMap = ToolExecutionRequestUtil.GSON.toJson(callArgsMap);
+            String serializedArgsMap = GSON.toJson(callArgsMap);
             builder.arguments(serializedArgsMap);
 
             toolExecutionRequests.add(builder.build());
@@ -106,27 +88,16 @@ class FunctionCallHelper {
 
         for (ToolSpecification toolSpecification : toolSpecifications) {
             FunctionDeclaration.Builder fnBuilder = FunctionDeclaration.newBuilder()
-                .setName(toolSpecification.name())
-                .setDescription(toolSpecification.description());
+                .setName(toolSpecification.name());
 
-            Schema.Builder schema = Schema.newBuilder().setType(Type.OBJECT);
-
-            ToolParameters parameters = toolSpecification.parameters();
-            for (String paramName : parameters.required()) {
-                schema.addRequired(paramName);
+            if (toolSpecification.description() != null) {
+                fnBuilder.setDescription(toolSpecification.description());
             }
-            parameters.properties().forEach((paramName, paramProps) -> {
-                //TODO: is it covering all types & cases of tool parameters? (array & object in particular)
-                Type type = fromType((String) paramProps.getOrDefault("type", Type.TYPE_UNSPECIFIED));
 
-                String description = (String) paramProps.getOrDefault("description", "");
+            if (toolSpecification.parameters() != null) {
+                fnBuilder.setParameters(SchemaHelper.from(toolSpecification.parameters()));
+            }
 
-                schema.putProperties(paramName, Schema.newBuilder()
-                        .setDescription(description)
-                        .setType(type)
-                        .build());
-            });
-            fnBuilder.setParameters(schema.build());
             tool.addFunctionDeclarations(fnBuilder.build());
         }
 

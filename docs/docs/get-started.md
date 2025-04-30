@@ -4,58 +4,126 @@ sidebar_position: 5
 
 # Get Started
 
-## Prerequisites
 :::note
-Ensure you have Java 8 or higher installed. Verify it by typing this command in your terminal:
-```shell
-java --version
-```
+If you are using Quarkus, see [Quarkus Integration](/tutorials/quarkus-integration/).
+
+If you are using Spring Boot, see [Spring Boot Integration](/tutorials/spring-boot-integration).
+
+If you are using Helidon, see [Helidon Integration](/tutorials/helidon-integration)
 :::
 
-## Write a "Hello World" program
+LangChain4j offers integrations with many [LLM providers](/integrations/language-models/),
+[embedding/vector stores](/integrations/embedding-stores), etc.
+Each integration has its own maven dependency.
 
-The simplest way to begin is with the OpenAI integration.
-LangChain4j offers integration with many LLMs.
-Each integration has its own dependency.
-In this case, we should add the OpenAI dependency:
+The minimum supported JDK version is 17.
+
+As an example, let's import the OpenAI dependency:
 
 - For Maven in `pom.xml`:
 ```xml
 <dependency>
     <groupId>dev.langchain4j</groupId>
     <artifactId>langchain4j-open-ai</artifactId>
-    <version>0.30.0</version>
+    <version>1.0.0-beta3</version>
+</dependency>
+```
+
+If you wish to use a high-level [AI Services](/tutorials/ai-services) API, you will also need to add 
+the following dependency:
+
+```xml
+<dependency>
+    <groupId>dev.langchain4j</groupId>
+    <artifactId>langchain4j</artifactId>
+    <version>1.0.0-beta3</version>
 </dependency>
 ```
 
 - For Gradle in `build.gradle`:
 ```groovy
-implementation 'dev.langchain4j:langchain4j-open-ai:0.30.0'
+implementation 'dev.langchain4j:langchain4j-open-ai:1.0.0-beta3'
+implementation 'dev.langchain4j:langchain4j:1.0.0-beta3'
 ```
+
+<details>
+<summary>Bill of Materials (BOM)</summary>
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-bom</artifactId>
+            <version>1.0.0-beta3</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+</details>
+
+<details>
+<summary>SNAPSHOT dependencies (newest features)</summary>
+
+If you'd like to test the newest features before their official release,
+you can use the most recent SNAPSHOT dependency:
+```xml
+<repositories>
+    <repository>
+        <id>snapshots-repo</id>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>dev.langchain4j</groupId>
+        <artifactId>langchain4j</artifactId>
+        <version>1.0.0-beta4-SNAPSHOT</version>
+    </dependency>
+</dependencies>
+```
+</details>
 
 Then, import your OpenAI API key.
 It's recommended to store your API keys in environment variables to reduce the risk of exposing them publicly.
 ```java
 String apiKey = System.getenv("OPENAI_API_KEY");
 ```
-:::note
+
+<details>
+<summary>What if I don't have an API key?</summary>
+
 If you don't have your own OpenAI API key, don't worry.
-You can temporarily use `demo` key, which we provide for free for demonstration purposes:
-```java
-String apiKey = "demo";
-```
-Be aware that when using the `demo` key, all requests to the OpenAI API go through our proxy,
+You can temporarily use `demo` key, which we provide for free for demonstration purposes.
+Be aware that when using the `demo` key, all requests to the OpenAI API need to go through our proxy,
 which injects the real key before forwarding your request to the OpenAI API.
 We do not collect or use your data in any way.
-The `demo` key has a quota and should only be used for demonstration purposes.
-:::
+The `demo` key has a quota, is restricted to the `gpt-4o-mini` model, and should only be used for demonstration purposes.
+
+```java
+OpenAiChatModel model = OpenAiChatModel.builder()
+    .baseUrl("http://langchain4j.dev/demo/openai/v1")
+    .apiKey("demo")
+    .modelName("gpt-4o-mini")
+    .build();
+```
+</details>
 
 Once you've set up the key, let's create an instance of an `OpenAiChatModel`:
 ```java
-OpenAiChatModel model = OpenAiChatModel.withApiKey(apiKey);
+OpenAiChatModel model = OpenAiChatModel.builder()
+    .apiKey(apiKey)
+    .modelName("gpt-4o-mini")
+    .build();
 ```
 Now, it is time to chat!
 ```java
-String answer = model.generate("Say 'Hello World'");
+String answer = model.chat("Say 'Hello World'");
 System.out.println(answer); // Hello World
 ```

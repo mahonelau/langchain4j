@@ -1,23 +1,20 @@
 package dev.langchain4j.store.embedding;
 
-import dev.langchain4j.Experimental;
 import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.store.embedding.filter.Filter;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+
+import java.util.Objects;
 
 import static dev.langchain4j.internal.Utils.getOrDefault;
-import static dev.langchain4j.internal.ValidationUtils.*;
+import static dev.langchain4j.internal.ValidationUtils.ensureBetween;
+import static dev.langchain4j.internal.ValidationUtils.ensureGreaterThanZero;
+import static dev.langchain4j.internal.ValidationUtils.ensureNotNull;
 
 /**
  * Represents a request to search in an {@link EmbeddingStore}.
  */
-@Experimental
-@ToString
-@EqualsAndHashCode
 public class EmbeddingSearchRequest {
 
     private final Embedding queryEmbedding;
@@ -40,8 +37,6 @@ public class EmbeddingSearchRequest {
      *                       Please note that not all {@link EmbeddingStore}s support this feature yet.
      *                       This is an optional parameter. Default: no filtering
      */
-    @Builder
-    @Experimental
     public EmbeddingSearchRequest(Embedding queryEmbedding, Integer maxResults, Double minScore, Filter filter) {
         this.queryEmbedding = ensureNotNull(queryEmbedding, "queryEmbedding");
         this.maxResults = ensureGreaterThanZero(getOrDefault(maxResults, 3), "maxResults");
@@ -49,23 +44,74 @@ public class EmbeddingSearchRequest {
         this.filter = filter;
     }
 
-    @Experimental
+    public static EmbeddingSearchRequestBuilder builder() {
+        return new EmbeddingSearchRequestBuilder();
+    }
+
     public Embedding queryEmbedding() {
         return queryEmbedding;
     }
 
-    @Experimental
     public int maxResults() {
         return maxResults;
     }
 
-    @Experimental
     public double minScore() {
         return minScore;
     }
 
-    @Experimental
     public Filter filter() {
         return filter;
+    }
+
+    public boolean equals(final Object o) {
+        if (o == this) return true;
+        if (!(o instanceof EmbeddingSearchRequest other)) return false;
+        return this.maxResults == other.maxResults
+                && this.minScore == other.minScore
+                && Objects.equals(this.queryEmbedding, other.queryEmbedding)
+                && Objects.equals(this.filter, other.filter);
+    }
+
+    public int hashCode() {
+        return Objects.hash(queryEmbedding, maxResults, minScore, filter);
+    }
+
+    public String toString() {
+        return "EmbeddingSearchRequest(queryEmbedding=" + this.queryEmbedding + ", maxResults=" + this.maxResults + ", minScore=" + this.minScore + ", filter=" + this.filter + ")";
+    }
+
+    public static class EmbeddingSearchRequestBuilder {
+        private Embedding queryEmbedding;
+        private Integer maxResults;
+        private Double minScore;
+        private Filter filter;
+
+        EmbeddingSearchRequestBuilder() {
+        }
+
+        public EmbeddingSearchRequestBuilder queryEmbedding(Embedding queryEmbedding) {
+            this.queryEmbedding = queryEmbedding;
+            return this;
+        }
+
+        public EmbeddingSearchRequestBuilder maxResults(Integer maxResults) {
+            this.maxResults = maxResults;
+            return this;
+        }
+
+        public EmbeddingSearchRequestBuilder minScore(Double minScore) {
+            this.minScore = minScore;
+            return this;
+        }
+
+        public EmbeddingSearchRequestBuilder filter(Filter filter) {
+            this.filter = filter;
+            return this;
+        }
+
+        public EmbeddingSearchRequest build() {
+            return new EmbeddingSearchRequest(this.queryEmbedding, this.maxResults, this.minScore, this.filter);
+        }
     }
 }

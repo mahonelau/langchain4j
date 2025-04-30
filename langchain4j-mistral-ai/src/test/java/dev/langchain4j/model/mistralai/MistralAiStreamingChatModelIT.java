@@ -1,26 +1,36 @@
 package dev.langchain4j.model.mistralai;
 
+import static dev.langchain4j.data.message.UserMessage.userMessage;
+import static dev.langchain4j.model.mistralai.MistralAiChatModelName.MISTRAL_LARGE_LATEST;
+import static dev.langchain4j.model.mistralai.MistralAiChatModelName.MISTRAL_MEDIUM_LATEST;
+import static dev.langchain4j.model.mistralai.MistralAiChatModelName.MISTRAL_SMALL_LATEST;
+import static dev.langchain4j.model.mistralai.MistralAiChatModelName.OPEN_MISTRAL_7B;
+import static dev.langchain4j.model.mistralai.MistralAiChatModelName.OPEN_MIXTRAL_8X22B;
+import static dev.langchain4j.model.mistralai.internal.api.MistralAiResponseFormatType.JSON_OBJECT;
+import static dev.langchain4j.model.output.FinishReason.*;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolSpecification;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.ToolExecutionResultMessage;
 import dev.langchain4j.data.message.UserMessage;
-import dev.langchain4j.model.chat.StreamingChatLanguageModel;
-import dev.langchain4j.model.chat.TestStreamingResponseHandler;
-import dev.langchain4j.model.output.Response;
+import dev.langchain4j.model.chat.StreamingChatModel;
+import dev.langchain4j.model.chat.TestStreamingChatResponseHandler;
+import dev.langchain4j.model.chat.request.ChatRequest;
+import dev.langchain4j.model.chat.request.ResponseFormat;
+import dev.langchain4j.model.chat.request.ResponseFormatType;
+import dev.langchain4j.model.chat.request.json.JsonObjectSchema;
+import dev.langchain4j.model.chat.request.json.JsonSchema;
+import dev.langchain4j.model.chat.response.ChatResponse;
 import dev.langchain4j.model.output.TokenUsage;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
-import static dev.langchain4j.agent.tool.JsonSchemaProperty.STRING;
-import static dev.langchain4j.data.message.UserMessage.userMessage;
-import static dev.langchain4j.model.output.FinishReason.*;
-import static dev.langchain4j.model.output.FinishReason.TOOL_EXECUTION;
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MistralAiStreamingChatModelIT {
@@ -28,22 +38,34 @@ class MistralAiStreamingChatModelIT {
     ToolSpecification retrievePaymentStatus = ToolSpecification.builder()
             .name("retrieve-payment-status")
             .description("Retrieve Payment Status")
-            .addParameter("transactionId", STRING)
+            .parameters(JsonObjectSchema.builder()
+                    .addStringProperty("transactionId")
+                    .required("transactionId")
+                    .build())
             .build();
 
-    StreamingChatLanguageModel mistralLargeStreamingModel = MistralAiStreamingChatModel.builder()
+    StreamingChatModel ministral3b = MistralAiStreamingChatModel.builder()
             .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-            .modelName(MistralAiChatModelName.MISTRAL_LARGE_LATEST)
+            .modelName("ministral-3b-latest")
+            .temperature(0.0)
+            .logRequests(true)
+            .logResponses(true)
+            .build();
+
+    StreamingChatModel defaultModel = MistralAiStreamingChatModel.builder()
+            .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
+            .modelName(OPEN_MISTRAL_7B)
             .temperature(0.1)
             .logRequests(true)
             .logResponses(true)
             .build();
 
-    StreamingChatLanguageModel model = MistralAiStreamingChatModel.builder()
+    StreamingChatModel openMixtral8x22BModel = MistralAiStreamingChatModel.builder()
             .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
+            .modelName(OPEN_MIXTRAL_8X22B)
             .temperature(0.1)
-            .logResponses(true)
             .logRequests(true)
+            .logResponses(true)
             .build();
 
     @Test
@@ -53,16 +75,16 @@ class MistralAiStreamingChatModelIT {
         UserMessage userMessage = userMessage("What is the capital of Peru?");
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        model.generate(singletonList(userMessage), handler);
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        defaultModel.chat(List.of(userMessage), handler);
 
-        Response<AiMessage> response = handler.get();
+        ChatResponse response = handler.get();
 
         // then
-        assertThat(response.content().text()).containsIgnoringCase("Lima");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("Lima");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(15);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
@@ -74,8 +96,9 @@ class MistralAiStreamingChatModelIT {
     void should_stream_answer_and_return_token_usage_and_finish_reason_length() {
 
         // given
-        StreamingChatLanguageModel model = MistralAiStreamingChatModel.builder()
+        StreamingChatModel model = MistralAiStreamingChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
+                .modelName(OPEN_MISTRAL_7B)
                 .maxTokens(10)
                 .build();
 
@@ -83,16 +106,16 @@ class MistralAiStreamingChatModelIT {
         UserMessage userMessage = userMessage("What is the capital of Peru?");
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        model.generate(singletonList(userMessage), handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        model.chat(List.of(userMessage), handler);
+        ChatResponse response = handler.get();
 
         // then
-        assertThat(response.content().text()).containsIgnoringCase("Lima");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("Lima");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(15);
-        assertThat(tokenUsage.outputTokenCount()).isEqualTo(10);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
+        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
 
@@ -104,24 +127,26 @@ class MistralAiStreamingChatModelIT {
     void should_stream_answer_and_system_prompt_to_enforce_guardrails() {
 
         // given
-        StreamingChatLanguageModel model = MistralAiStreamingChatModel.builder()
+        StreamingChatModel model = MistralAiStreamingChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
+                .modelName(OPEN_MISTRAL_7B)
                 .safePrompt(true)
+                .temperature(0.0)
                 .build();
 
         // given
         UserMessage userMessage = userMessage("Hello, my name is Carlos");
 
         // then
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        model.generate(singletonList(userMessage), handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        model.chat(List.of(userMessage), handler);
+        ChatResponse response = handler.get();
 
         // then
-        assertThat(response.content().text()).containsIgnoringCase("respect");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("respect");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(50);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
@@ -138,17 +163,17 @@ class MistralAiStreamingChatModelIT {
         UserMessage userMessage3 = userMessage("What is the capital of Canada?");
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        model.generate(asList(userMessage1, userMessage2, userMessage3), handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        defaultModel.chat(List.of(userMessage1, userMessage2, userMessage3), handler);
+        ChatResponse response = handler.get();
 
         // then
-        assertThat(response.content().text()).containsIgnoringCase("lima");
-        assertThat(response.content().text()).containsIgnoringCase("paris");
-        assertThat(response.content().text()).containsIgnoringCase("ottawa");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("lima");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("paris");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("ottawa");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(11 + 11 + 11);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
@@ -160,25 +185,25 @@ class MistralAiStreamingChatModelIT {
     void should_stream_answer_in_french_using_model_small_and_return_token_usage_and_finish_reason_stop() {
 
         // given - Mistral Small = Mistral-8X7B
-        StreamingChatLanguageModel model = MistralAiStreamingChatModel.builder()
+        StreamingChatModel model = MistralAiStreamingChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-                .modelName(MistralAiChatModelName.MISTRAL_SMALL_LATEST)
+                .modelName(MISTRAL_SMALL_LATEST)
                 .temperature(0.1)
                 .build();
 
         UserMessage userMessage = userMessage("Quelle est la capitale du Pérou?");
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        model.generate(singletonList(userMessage), handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        model.chat(List.of(userMessage), handler);
+        ChatResponse response = handler.get();
 
         // then
-        assertThat(response.content().text()).containsIgnoringCase("lima");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("lima");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(13);
-        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(1);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
+        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
 
@@ -189,25 +214,25 @@ class MistralAiStreamingChatModelIT {
     void should_stream_answer_in_spanish_using_model_small_and_return_token_usage_and_finish_reason_stop() {
 
         // given - Mistral Small = Mistral-8X7B
-        StreamingChatLanguageModel model = MistralAiStreamingChatModel.builder()
+        StreamingChatModel model = MistralAiStreamingChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-                .modelName(MistralAiChatModelName.MISTRAL_SMALL_LATEST)
+                .modelName(MISTRAL_SMALL_LATEST)
                 .temperature(0.1)
                 .build();
 
         UserMessage userMessage = userMessage("¿Cuál es la capital de Perú?");
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        model.generate(singletonList(userMessage), handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        model.chat(List.of(userMessage), handler);
+        ChatResponse response = handler.get();
 
         // then
-        assertThat(response.content().text()).containsIgnoringCase("lima");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("lima");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(14);
-        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(1);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
+        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
 
@@ -218,25 +243,25 @@ class MistralAiStreamingChatModelIT {
     void should_stream_answer_using_model_medium_and_return_token_usage_and_finish_reason_length() {
 
         // given - Mistral Medium = currently relies on an internal prototype model.
-        StreamingChatLanguageModel model = MistralAiStreamingChatModel.builder()
+        StreamingChatModel model = MistralAiStreamingChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-                .modelName(MistralAiChatModelName.MISTRAL_MEDIUM_LATEST)
+                .modelName(MISTRAL_MEDIUM_LATEST)
                 .maxTokens(10)
                 .build();
 
         UserMessage userMessage = userMessage("What is the capital of Peru?");
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        model.generate(singletonList(userMessage), handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        model.chat(List.of(userMessage), handler);
+        ChatResponse response = handler.get();
 
         // then
-        assertThat(response.content().text()).containsIgnoringCase("lima");
+        assertThat(response.aiMessage().text()).containsIgnoringCase("lima");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(15);
-        assertThat(tokenUsage.outputTokenCount()).isEqualTo(10);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
+        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
 
@@ -244,20 +269,25 @@ class MistralAiStreamingChatModelIT {
     }
 
     @Test
-    void should_execute_tool_and_return_finishReason_tool_execution(){
+    void should_execute_tool_using_model_open8x22B_and_return_finishReason_tool_execution() {
 
         // given
         UserMessage userMessage = userMessage("What is the status of transaction T123?");
         List<ToolSpecification> toolSpecifications = singletonList(retrievePaymentStatus);
 
-        // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(singletonList(userMessage), toolSpecifications,handler);
+        ChatRequest request = ChatRequest.builder()
+                .messages(userMessage)
+                .toolSpecifications(toolSpecifications)
+                .build();
 
-        Response<AiMessage> response = handler.get();
+        // when
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        openMixtral8x22BModel.chat(request, handler);
+
+        ChatResponse response = handler.get();
 
         // then
-        AiMessage aiMessage = response.content();
+        AiMessage aiMessage = response.aiMessage();
         assertThat(aiMessage.text()).isNull();
         assertThat(aiMessage.toolExecutionRequests()).hasSize(1);
 
@@ -266,8 +296,8 @@ class MistralAiStreamingChatModelIT {
         assertThat(toolExecutionRequest.arguments()).isEqualToIgnoringWhitespace("{\"transactionId\":\"T123\"}");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(78);
-        assertThat(tokenUsage.outputTokenCount()).isEqualTo(28);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
+        assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
 
@@ -275,27 +305,35 @@ class MistralAiStreamingChatModelIT {
     }
 
     @Test
-    void should_execute_tool_when_toolChoice_is_auto_and_answer(){
+    void should_execute_tool_using_model_open8x22B_when_toolChoice_is_auto_and_answer() {
         // given
         ToolSpecification retrievePaymentDate = ToolSpecification.builder()
                 .name("retrieve-payment-date")
                 .description("Retrieve Payment Date")
-                .addParameter("transactionId", STRING)
+                .parameters(JsonObjectSchema.builder()
+                        .addStringProperty("transactionId")
+                        .required("transactionId")
+                        .build())
                 .build();
 
         List<ChatMessage> chatMessages = new ArrayList<>();
         UserMessage userMessage = userMessage("What is the status of transaction T123?");
 
         chatMessages.add(userMessage);
-        List<ToolSpecification> toolSpecifications = asList(retrievePaymentStatus,retrievePaymentDate);
+        List<ToolSpecification> toolSpecifications = asList(retrievePaymentStatus, retrievePaymentDate);
+
+        ChatRequest request = ChatRequest.builder()
+                .messages(chatMessages)
+                .toolSpecifications(toolSpecifications)
+                .build();
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(chatMessages, toolSpecifications, handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        openMixtral8x22BModel.chat(request, handler);
+        ChatResponse response = handler.get();
 
         // then
-        AiMessage aiMessage = response.content();
+        AiMessage aiMessage = response.aiMessage();
         assertThat(aiMessage.text()).isNull();
         assertThat(aiMessage.toolExecutionRequests()).hasSize(1);
 
@@ -312,18 +350,18 @@ class MistralAiStreamingChatModelIT {
         chatMessages.add(toolExecutionResultMessage);
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler2 = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(chatMessages, handler2);
-        Response<AiMessage> response2 = handler2.get();
+        TestStreamingChatResponseHandler handler2 = new TestStreamingChatResponseHandler();
+        openMixtral8x22BModel.chat(chatMessages, handler2);
+        ChatResponse response2 = handler2.get();
 
         // then
-        AiMessage aiMessage2 = response2.content();
+        AiMessage aiMessage2 = response2.aiMessage();
         assertThat(aiMessage2.text()).containsIgnoringCase("T123");
         assertThat(aiMessage2.text()).containsIgnoringCase("paid");
-        assertThat(aiMessage2.toolExecutionRequests()).isNull();
+        assertThat(aiMessage2.toolExecutionRequests()).isEmpty();
 
         TokenUsage tokenUsage2 = response2.tokenUsage();
-        assertThat(tokenUsage2.inputTokenCount()).isEqualTo(69);
+        assertThat(tokenUsage2.inputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage2.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage2.totalTokenCount())
                 .isEqualTo(tokenUsage2.inputTokenCount() + tokenUsage2.outputTokenCount());
@@ -332,25 +370,33 @@ class MistralAiStreamingChatModelIT {
     }
 
     @Test
-    void should_execute_tool_forcefully_when_toolChoice_is_any_and_answer() {
+    void should_execute_tool_forcefully_using_model_open8x22B_when_toolChoice_is_any_and_answer() {
         // given
         ToolSpecification retrievePaymentDate = ToolSpecification.builder()
                 .name("retrieve-payment-date")
                 .description("Retrieve Payment Date")
-                .addParameter("transactionId", STRING)
+                .parameters(JsonObjectSchema.builder()
+                        .addStringProperty("transactionId")
+                        .required("transactionId")
+                        .build())
                 .build();
 
         List<ChatMessage> chatMessages = new ArrayList<>();
         UserMessage userMessage = userMessage("What is the payment date of transaction T123?");
         chatMessages.add(userMessage);
 
+        ChatRequest request = ChatRequest.builder()
+                .messages(userMessage)
+                .toolSpecifications(retrievePaymentDate)
+                .build();
+
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(singletonList(userMessage), retrievePaymentDate, handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        openMixtral8x22BModel.chat(request, handler);
+        ChatResponse response = handler.get();
 
         // then
-        AiMessage aiMessage = response.content();
+        AiMessage aiMessage = response.aiMessage();
         assertThat(aiMessage.text()).isNull();
         assertThat(aiMessage.toolExecutionRequests()).hasSize(1);
 
@@ -359,7 +405,7 @@ class MistralAiStreamingChatModelIT {
         assertThat(toolExecutionRequest.arguments()).isEqualToIgnoringWhitespace("{\"transactionId\":\"T123\"}");
 
         TokenUsage tokenUsage = response.tokenUsage();
-        assertThat(tokenUsage.inputTokenCount()).isEqualTo(79);
+        assertThat(tokenUsage.inputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage.totalTokenCount())
                 .isEqualTo(tokenUsage.inputTokenCount() + tokenUsage.outputTokenCount());
@@ -372,18 +418,18 @@ class MistralAiStreamingChatModelIT {
         chatMessages.add(toolExecutionResultMessage);
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler2 = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(chatMessages, handler2);
-        Response<AiMessage> response2 = handler2.get();
+        TestStreamingChatResponseHandler handler2 = new TestStreamingChatResponseHandler();
+        openMixtral8x22BModel.chat(chatMessages, handler2);
+        ChatResponse response2 = handler2.get();
 
         // then
-        AiMessage aiMessage2 = response2.content();
+        AiMessage aiMessage2 = response2.aiMessage();
         assertThat(aiMessage2.text()).containsIgnoringCase("T123");
         assertThat(aiMessage2.text()).containsIgnoringWhitespaces("March 11, 2024");
-        assertThat(aiMessage2.toolExecutionRequests()).isNull();
+        assertThat(aiMessage2.toolExecutionRequests()).isEmpty();
 
         TokenUsage tokenUsage2 = response2.tokenUsage();
-        assertThat(tokenUsage2.inputTokenCount()).isEqualTo(78);
+        assertThat(tokenUsage2.inputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage2.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage2.totalTokenCount())
                 .isEqualTo(tokenUsage2.inputTokenCount() + tokenUsage2.outputTokenCount());
@@ -392,27 +438,35 @@ class MistralAiStreamingChatModelIT {
     }
 
     @Test
-    void should_execute_multiple_tools_then_answer(){
+    void should_execute_multiple_tools_then_answer() {
         // given
         ToolSpecification retrievePaymentDate = ToolSpecification.builder()
                 .name("retrieve-payment-date")
                 .description("Retrieve Payment Date")
-                .addParameter("transactionId", STRING)
+                .parameters(JsonObjectSchema.builder()
+                        .addStringProperty("transactionId")
+                        .required("transactionId")
+                        .build())
                 .build();
 
         List<ChatMessage> chatMessages = new ArrayList<>();
         UserMessage userMessage = userMessage("What is the status and the payment date of transaction T123?");
 
         chatMessages.add(userMessage);
-        List<ToolSpecification> toolSpecifications = asList(retrievePaymentStatus,retrievePaymentDate);
+        List<ToolSpecification> toolSpecifications = asList(retrievePaymentStatus, retrievePaymentDate);
+
+        ChatRequest request = ChatRequest.builder()
+                .messages(chatMessages)
+                .toolSpecifications(toolSpecifications)
+                .build();
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(chatMessages, toolSpecifications, handler);
-        Response<AiMessage> response = handler.get();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        ministral3b.chat(request, handler);
+        ChatResponse response = handler.get();
 
         // then
-        AiMessage aiMessage = response.content();
+        AiMessage aiMessage = response.aiMessage();
         assertThat(aiMessage.text()).isNull();
         assertThat(aiMessage.toolExecutionRequests()).hasSize(2);
 
@@ -435,19 +489,19 @@ class MistralAiStreamingChatModelIT {
         chatMessages.add(toolExecutionResultMessage2);
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler2 = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(chatMessages, handler2);
-        Response<AiMessage> response2 = handler2.get();
+        TestStreamingChatResponseHandler handler2 = new TestStreamingChatResponseHandler();
+        ministral3b.chat(chatMessages, handler2);
+        ChatResponse response2 = handler2.get();
 
         // then
-        AiMessage aiMessage2 = response2.content();
+        AiMessage aiMessage2 = response2.aiMessage();
         assertThat(aiMessage2.text()).contains("T123");
         assertThat(aiMessage2.text()).containsIgnoringCase("paid");
-        assertThat(aiMessage2.text()).containsIgnoringWhitespaces("March 11, 2024");
-        assertThat(aiMessage2.toolExecutionRequests()).isNull();
+        assertThat(aiMessage2.text()).contains("11", "2024");
+        assertThat(aiMessage2.toolExecutionRequests()).isEmpty();
 
         TokenUsage tokenUsage2 = response2.tokenUsage();
-        assertThat(tokenUsage2.inputTokenCount()).isEqualTo(128);
+        assertThat(tokenUsage2.inputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage2.outputTokenCount()).isGreaterThan(0);
         assertThat(tokenUsage2.totalTokenCount())
                 .isEqualTo(tokenUsage2.inputTokenCount() + tokenUsage2.outputTokenCount());
@@ -456,28 +510,81 @@ class MistralAiStreamingChatModelIT {
     }
 
     @Test
-    void should_return_valid_json_object(){
+    void should_return_valid_json_object_using_model_large() {
 
         // given
         String userMessage = "Return JSON with two fields: transactionId and status with the values T123 and paid.";
 
         String expectedJson = "{\"transactionId\":\"T123\",\"status\":\"paid\"}";
 
-        StreamingChatLanguageModel mistralLargeStreamingModel = MistralAiStreamingChatModel.builder()
+        StreamingChatModel mistralLargeStreamingModel = MistralAiStreamingChatModel.builder()
                 .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
-                .modelName(MistralAiChatModelName.MISTRAL_LARGE_LATEST)
+                .modelName(MISTRAL_LARGE_LATEST)
                 .temperature(0.1)
-                .responseFormat(MistralAiResponseFormatType.JSON_OBJECT)
+                .responseFormat(JSON_OBJECT)
                 .logRequests(true)
                 .logResponses(true)
                 .build();
 
         // when
-        TestStreamingResponseHandler<AiMessage> handler = new TestStreamingResponseHandler<>();
-        mistralLargeStreamingModel.generate(userMessage, handler);
-        String json = handler.get().content().text();
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        mistralLargeStreamingModel.chat(userMessage, handler);
+        String json = handler.get().aiMessage().text();
 
         // then
         assertThat(json).isEqualToIgnoringWhitespace(expectedJson);
+    }
+
+    @Test
+    void should_fallback_to_default_format_when_no_message_response_format_given() {
+        // given
+        String userMessage = "Return JSON with two fields: transactionId and status with the values T123 and paid.";
+
+        String expectedJson = "{\"transactionId\":\"T123\",\"status\":\"paid\"}";
+
+        StreamingChatModel mistralSmallModel = MistralAiStreamingChatModel.builder()
+                .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
+                .modelName(MISTRAL_SMALL_LATEST)
+                .temperature(0.1)
+                .logRequests(true)
+                .logResponses(true)
+                .responseFormat(ResponseFormat.builder()
+                        .type(ResponseFormatType.JSON)
+                        .jsonSchema(JsonSchema.builder()
+                                .name("TransactionStatus")
+                                .rootElement(JsonObjectSchema.builder()
+                                        .addStringProperty("transactionId")
+                                        .addStringProperty("status")
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+
+        // when
+        TestStreamingChatResponseHandler handler = new TestStreamingChatResponseHandler();
+        mistralSmallModel.chat(userMessage, handler);
+        String json = handler.get().aiMessage().text();
+
+        // then
+        assertThat(json).isEqualToIgnoringWhitespace(expectedJson);
+    }
+
+    @Test
+    void bugfix_1218_allow_blank() {
+        // given
+        StreamingChatModel model = MistralAiStreamingChatModel.builder()
+                .apiKey(System.getenv("MISTRAL_AI_API_KEY"))
+                .modelName(MISTRAL_SMALL_LATEST)
+                .temperature(0d)
+                .build();
+
+        String userMessage = "What was inflation rate in germany in 2020? Answer in 1 short sentence. Begin your answer with 'In 2020, ...'";
+
+        // when
+        TestStreamingChatResponseHandler responseHandler = new TestStreamingChatResponseHandler();
+        model.chat(userMessage, responseHandler);
+
+        // results in: "In2020, Germany's inflation rate was0.5%."
+        assertThat(responseHandler.get().aiMessage().text()).containsIgnoringCase("In 2020");
     }
 }
