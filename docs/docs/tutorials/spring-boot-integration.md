@@ -25,7 +25,7 @@ The naming convention for the Spring Boot starter dependency is: `langchain4j-{i
 For example, for OpenAI (`langchain4j-open-ai`), the dependency name would be `langchain4j-open-ai-spring-boot-starter`:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -76,7 +76,7 @@ Assuming you have already imported one of the integrations starters (see above),
 import `langchain4j-spring-boot-starter`:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-spring-boot-starter</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

@@ -22,7 +22,7 @@
     </licenses>
 
     <properties>
-        <skipOvhAIITs>false</skipOvhAIITs>
+        <skipOvhAIITs>true</skipOvhAIITs>
     </properties>
 
     <dependencies>

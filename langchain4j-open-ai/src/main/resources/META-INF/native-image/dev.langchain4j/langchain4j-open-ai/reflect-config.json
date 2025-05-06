@@ -1,6 +1,6 @@
 [
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.AssistantMessage",
+    "name": "keyi.langchain4j.model.openai.internal.chat.AssistantMessage",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -9,7 +9,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ChatCompletionChoice",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ChatCompletionChoice",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -18,7 +18,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ChatCompletionRequest",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ChatCompletionRequest",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -27,7 +27,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ChatCompletionResponse",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ChatCompletionResponse",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -36,7 +36,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Content",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Content",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -45,7 +45,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ContentType",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ContentType",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -54,7 +54,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Delta",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Delta",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -63,7 +63,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Function",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Function",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -72,7 +72,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.FunctionCall",
+    "name": "keyi.langchain4j.model.openai.internal.chat.FunctionCall",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -81,7 +81,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.FunctionMessage",
+    "name": "keyi.langchain4j.model.openai.internal.chat.FunctionMessage",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -90,7 +90,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ImageDetail",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ImageDetail",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -99,7 +99,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ImageUrl",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ImageUrl",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -108,7 +108,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.InputAudio",
+    "name": "keyi.langchain4j.model.openai.internal.chat.InputAudio",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -117,7 +117,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonArraySchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonArraySchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -126,7 +126,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonBooleanSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonBooleanSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -135,7 +135,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonEnumSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonEnumSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -144,7 +144,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonIntegerSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonIntegerSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -153,7 +153,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonNumberSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonNumberSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -162,7 +162,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonObjectSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonObjectSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -171,7 +171,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonReferenceSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonReferenceSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -180,7 +180,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonAnyOfSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonAnyOfSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -189,7 +189,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -198,7 +198,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonSchemaElement",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonSchemaElement",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -207,7 +207,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonStringSchema",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonStringSchema",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -216,7 +216,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Message",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Message",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -225,7 +225,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ResponseFormat",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ResponseFormat",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -234,7 +234,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ResponseFormatType",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ResponseFormatType",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -243,7 +243,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Role",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Role",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -252,7 +252,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.SystemMessage",
+    "name": "keyi.langchain4j.model.openai.internal.chat.SystemMessage",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -261,7 +261,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Tool",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Tool",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -270,7 +270,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolCall",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolCall",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -279,7 +279,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolChoice",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolChoice",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -288,7 +288,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolChoiceMode",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolChoiceMode",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -297,7 +297,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolMessage",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolMessage",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -306,7 +306,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolType",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolType",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -315,7 +315,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.UserMessage",
+    "name": "keyi.langchain4j.model.openai.internal.chat.UserMessage",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -324,7 +324,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.CompletionChoice",
+    "name": "keyi.langchain4j.model.openai.internal.completion.CompletionChoice",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -333,7 +333,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.CompletionRequest",
+    "name": "keyi.langchain4j.model.openai.internal.completion.CompletionRequest",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -342,7 +342,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.CompletionResponse",
+    "name": "keyi.langchain4j.model.openai.internal.completion.CompletionResponse",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -351,7 +351,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.Logprobs",
+    "name": "keyi.langchain4j.model.openai.internal.completion.Logprobs",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -360,7 +360,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.embedding.Embedding",
+    "name": "keyi.langchain4j.model.openai.internal.embedding.Embedding",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -369,7 +369,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.embedding.EmbeddingRequest",
+    "name": "keyi.langchain4j.model.openai.internal.embedding.EmbeddingRequest",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -378,7 +378,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.embedding.EmbeddingResponse",
+    "name": "keyi.langchain4j.model.openai.internal.embedding.EmbeddingResponse",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -387,7 +387,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.image.GenerateImagesRequest",
+    "name": "keyi.langchain4j.model.openai.internal.image.GenerateImagesRequest",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -396,7 +396,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.image.GenerateImagesResponse",
+    "name": "keyi.langchain4j.model.openai.internal.image.GenerateImagesResponse",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -405,7 +405,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.image.ImageData",
+    "name": "keyi.langchain4j.model.openai.internal.image.ImageData",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -414,7 +414,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.Categories",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.Categories",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -423,7 +423,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.CategoryScores",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.CategoryScores",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -432,7 +432,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.ModerationRequest",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.ModerationRequest",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -441,7 +441,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.ModerationResponse",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.ModerationResponse",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -450,7 +450,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.ModerationResult",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.ModerationResult",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -459,7 +459,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.CompletionTokensDetails",
+    "name": "keyi.langchain4j.model.openai.internal.shared.CompletionTokensDetails",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -468,7 +468,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.PromptTokensDetails",
+    "name": "keyi.langchain4j.model.openai.internal.shared.PromptTokensDetails",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -477,7 +477,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.StreamOptions",
+    "name": "keyi.langchain4j.model.openai.internal.shared.StreamOptions",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -486,7 +486,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.Usage",
+    "name": "keyi.langchain4j.model.openai.internal.shared.Usage",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -495,7 +495,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.AssistantMessage$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.AssistantMessage$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -504,7 +504,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ChatCompletionChoice$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ChatCompletionChoice$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -513,7 +513,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ChatCompletionRequest$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ChatCompletionRequest$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -522,7 +522,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ChatCompletionResponse$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ChatCompletionResponse$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -531,7 +531,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Content$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Content$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -540,7 +540,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Delta$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Delta$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -549,7 +549,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Function$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Function$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -558,7 +558,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.FunctionCall$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.FunctionCall$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -567,7 +567,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.FunctionMessage$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.FunctionMessage$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -576,7 +576,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ImageUrl$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ImageUrl$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -585,7 +585,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.InputAudio$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.InputAudio$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -594,7 +594,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonArraySchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonArraySchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -603,7 +603,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonBooleanSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonBooleanSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -612,7 +612,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonEnumSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonEnumSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -621,7 +621,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonIntegerSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonIntegerSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -630,7 +630,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonNumberSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonNumberSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -639,7 +639,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonObjectSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonObjectSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -648,7 +648,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonReferenceSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonReferenceSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -657,7 +657,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonAnyOfSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonAnyOfSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -666,7 +666,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -675,7 +675,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonSchemaElement$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonSchemaElement$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -684,7 +684,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.JsonStringSchema$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.JsonStringSchema$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -693,7 +693,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ResponseFormat$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ResponseFormat$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -702,7 +702,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.SystemMessage$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.SystemMessage$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -711,7 +711,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.Tool$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.Tool$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -720,7 +720,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolCall$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolCall$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -729,7 +729,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolChoice$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolChoice$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -738,7 +738,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.ToolMessage$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.ToolMessage$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -747,7 +747,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.chat.UserMessage$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.chat.UserMessage$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -756,7 +756,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.CompletionChoice$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.completion.CompletionChoice$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -765,7 +765,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.CompletionRequest$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.completion.CompletionRequest$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -774,7 +774,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.CompletionResponse$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.completion.CompletionResponse$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -783,7 +783,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.completion.Logprobs$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.completion.Logprobs$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -792,7 +792,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.embedding.Embedding$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.embedding.Embedding$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -801,7 +801,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.embedding.EmbeddingRequest$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.embedding.EmbeddingRequest$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -810,7 +810,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.embedding.EmbeddingResponse$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.embedding.EmbeddingResponse$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -819,7 +819,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.image.GenerateImagesRequest$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.image.GenerateImagesRequest$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -828,7 +828,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.image.GenerateImagesResponse$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.image.GenerateImagesResponse$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -837,7 +837,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.image.ImageData$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.image.ImageData$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -846,7 +846,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.Categories$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.Categories$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -855,7 +855,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.CategoryScores$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.CategoryScores$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -864,7 +864,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.ModerationRequest$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.ModerationRequest$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -873,7 +873,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.ModerationResponse$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.ModerationResponse$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -882,7 +882,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.moderation.ModerationResult$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.moderation.ModerationResult$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -891,7 +891,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.CompletionTokensDetails$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.shared.CompletionTokensDetails$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -900,7 +900,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.PromptTokensDetails$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.shared.PromptTokensDetails$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -909,7 +909,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.StreamOptions$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.shared.StreamOptions$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -918,7 +918,7 @@
     "allPublicFields": true
   },
   {
-    "name": "dev.langchain4j.model.openai.internal.shared.Usage$Builder",
+    "name": "keyi.langchain4j.model.openai.internal.shared.Usage$Builder",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,

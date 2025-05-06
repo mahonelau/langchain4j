@@ -9,7 +9,7 @@ sidebar_position: 1
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-document-loader-amazon-s3</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

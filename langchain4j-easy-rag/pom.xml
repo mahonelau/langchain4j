@@ -84,7 +84,7 @@
         </dependency>
 
         <dependency>
-            <groupId>keyi.langchain4j</groupId>
+            <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-embeddings-bge-small-en-v15-q</artifactId>
             <version>${project.version}</version>
             <exclusions>

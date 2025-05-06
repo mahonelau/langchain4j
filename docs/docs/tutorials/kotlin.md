@@ -12,7 +12,7 @@ LangChain4j utilizes Kotlin [extensions](https://kotlinlang.org/docs/extensions.
 Add `langchain4j-kotlin` module to your project dependencies:
 ```xml
  <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-kotlin</artifactId>
     <version>[LATEST_VERSION]</version>
 </dependency>

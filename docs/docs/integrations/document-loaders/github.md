@@ -9,7 +9,7 @@ sidebar_position: 4
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-document-loader-github</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

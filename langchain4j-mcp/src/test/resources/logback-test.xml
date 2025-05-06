@@ -10,6 +10,6 @@
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="dev.langchain4j" level="DEBUG"/>
+    <logger name="keyi.langchain4j" level="DEBUG"/>
 
 </configuration>

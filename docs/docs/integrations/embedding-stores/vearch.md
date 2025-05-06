@@ -17,7 +17,7 @@ Since `1.0.0-alpha1`, `langchain4j-vearch` has migrated to `langchain4j-communit
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-vearch</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -27,7 +27,7 @@ Since `1.0.0-alpha1`, `langchain4j-vearch` has migrated to `langchain4j-communit
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-community-vearch</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -38,7 +38,7 @@ Or, you can use BOM to manage dependencies consistently:
 ```xml
 <dependencyManagement>
     <dependency>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-community-bom</artifactId>
         <version>1.0.0-beta3</version>
         <typ>pom</typ>

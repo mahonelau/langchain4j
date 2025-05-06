@@ -7,7 +7,7 @@ This module implements `EmbeddingStore` using Oracle Database.
 ## Installation
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artificatId>langchain4j-oracle</artificatId>
     <version>0.1.0</version>
 </dependency>

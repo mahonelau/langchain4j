@@ -11,7 +11,7 @@ https://azure.microsoft.com/en-us/products/cosmos-db/
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-azure-cosmos-mongo-vcore</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

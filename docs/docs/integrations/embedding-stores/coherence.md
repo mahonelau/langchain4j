@@ -10,7 +10,7 @@ https://coherence.community/
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-coherence</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -37,7 +37,7 @@ For example, to use Community Edition (CE), add the Coherence BOM to the depende
 
 <dependencies>
     <dependency>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-coherence</artifactId>
         <version>1.0.0-beta3</version>
     </dependency>

@@ -13,7 +13,7 @@ Each model is provided in 2 flavours: original and quantized (has a `-q` suffix 
 For example:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-embeddings-all-minilm-l6-v2</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -27,7 +27,7 @@ Embedding embedding = response.content();
 Or quantized:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-embeddings-all-minilm-l6-v2-q</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -71,7 +71,7 @@ Many models already converted to ONNX format are available [here](https://huggin
 Example of using custom embedding model:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-embeddings</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

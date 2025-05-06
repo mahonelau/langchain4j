@@ -11,7 +11,7 @@ https://weaviate.io/
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-weaviate</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

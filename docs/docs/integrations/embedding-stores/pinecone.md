@@ -11,7 +11,7 @@ https://www.pinecone.io/
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-pinecone</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

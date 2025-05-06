@@ -11,7 +11,7 @@ https://programmablesearchengine.google.com/
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-web-search-engine-google-custom</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

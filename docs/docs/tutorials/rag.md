@@ -103,7 +103,7 @@ adjusting and customizing more and more aspects.
 1. Import the `langchain4j-easy-rag` dependency:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-easy-rag</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

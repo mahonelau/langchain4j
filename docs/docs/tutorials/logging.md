@@ -55,5 +55,5 @@ logging is configured in the `application.properties` file:
 ...
 langchain4j.open-ai.chat-model.log-requests = true
 langchain4j.open-ai.chat-model.log-responses = true
-logging.level.dev.langchain4j = DEBUG
+logging.level.keyi.langchain4j = DEBUG
 ```

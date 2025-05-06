@@ -8,14 +8,14 @@ class TextSegmentTest implements WithAssertions {
     @Test
     void blank() {
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> TextSegment.from(" "))
+                .isThrownBy(() -> dev.langchain4j.data.segment.TextSegment.from(" "))
                 .withMessageContaining("text cannot be null or blank");
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> TextSegment.from(null))
+                .isThrownBy(() -> dev.langchain4j.data.segment.TextSegment.from(null))
                 .withMessageContaining("text cannot be null or blank");
 
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> TextSegment.from("text", null))
+                .isThrownBy(() -> dev.langchain4j.data.segment.TextSegment.from("text", null))
                 .withMessageContaining("metadata cannot be null");
     }
 

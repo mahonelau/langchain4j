@@ -11,7 +11,7 @@ https://github.com/searxng/searxng
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-community-web-search-engine-searxng</artifactId>
     <version>0.36.0</version>
 </dependency>

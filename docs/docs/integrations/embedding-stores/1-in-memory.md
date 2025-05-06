@@ -15,7 +15,7 @@ It can also be persisted and restored to/from a JSON string or a file.
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

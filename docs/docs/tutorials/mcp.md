@@ -86,7 +86,7 @@ The MCP protocol also defines a way for the server to send log messages to
 the client. By default, the behavior of the client is to transform these log
 messages and log them using the SLF4J logger. If you want to change this
 behavior, there is an interface named
-`dev.langchain4j.mcp.client.logging.McpLogMessageHandler` that serves as a
+`keyi.langchain4j.mcp.client.logging.McpLogMessageHandler` that serves as a
 callback for received log messages. If you create your own implementation of
 `McpLogMessageHandler`, pass it to the MCP client builder:
 
@@ -120,7 +120,7 @@ messages and these are represented as `McpPromptMessage` objects. Each `McpPromp
 and the actual content of the message. The supported message content types at the moment
 are: `McpTextContent`, `McpImageContent`, and `McpEmbeddedResource`. 
 
-You can use `McpPromptMessage.toChatMessage()` to convert it into a generic `dev.langchain4j.data.message.ChatMessage`
+You can use `McpPromptMessage.toChatMessage()` to convert it into a generic `keyi.langchain4j.data.message.ChatMessage`
 from the LangChain4j core API. This is not possible in all cases though. For example, it will throw an
 exception if the prompt message's `role` is `assistant` and it contains content other than text. Converting
 messages with binary blob content to a `ChatMessage` is unsupported regardless of the role.

@@ -13,7 +13,7 @@ sidebar_position: 22
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-community-xinference</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -24,7 +24,7 @@ Or, you can use BOM to manage dependencies consistently:
 ```xml
 <dependencyManagement>
     <dependency>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-community-bom</artifactId>
         <version>1.0.0-beta3</version>
         <typ>pom</typ>

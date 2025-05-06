@@ -15,7 +15,7 @@ sidebar_position: 17
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-ovh-ai</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -40,13 +40,13 @@ The OVHcloud AI Embeddings model allows you to embed sentences, and using it in 
 Create a class and add the following code.
 
 ```java
-import dev.langchain4j.data.embedding.Embedding;
-import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.model.ovhai.OvhAiEmbeddingModel;
-import dev.langchain4j.store.embedding.EmbeddingMatch;
-import dev.langchain4j.store.embedding.EmbeddingStore;
-import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
+import keyi.langchain4j.data.embedding.Embedding;
+import keyi.langchain4j.data.segment.TextSegment;
+import keyi.langchain4j.model.embedding.EmbeddingModel;
+import keyi.langchain4j.model.ovhai.OvhAiEmbeddingModel;
+import keyi.langchain4j.store.embedding.EmbeddingMatch;
+import keyi.langchain4j.store.embedding.EmbeddingStore;
+import keyi.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 
 import java.util.List;
 

@@ -13,7 +13,7 @@ sidebar_position: 2
 Add the following dependencies to your project's `pom.xml`:
 ```xml
 <dependency>
-  <groupId>dev.langchain4j</groupId>
+  <groupId>keyi.langchain4j</groupId>
   <artifactId>langchain4j-web-search-engine-searchapi</artifactId>
   <version>1.0.0-beta3</version>
 </dependency>
@@ -22,20 +22,20 @@ Add the following dependencies to your project's `pom.xml`:
 or project's `build.gradle`:
 
 ```groovy
-implementation 'dev.langchain4j:langchain4j-web-search-engine-searchapi:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j-web-search-engine-searchapi:1.0.0-beta3'
 ```
 
 ### Example code:
 
 ```java
-import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.model.openai.OpenAiChatModelName;
-import dev.langchain4j.service.AiServices;
-import dev.langchain4j.web.search.WebSearchTool;
-import dev.langchain4j.web.search.searchapi.SearchApiEngine;
-import dev.langchain4j.web.search.searchapi.SearchApiWebSearchEngine;
+import keyi.langchain4j.memory.chat.MessageWindowChatMemory;
+import keyi.langchain4j.model.chat.ChatModel;
+import keyi.langchain4j.model.openai.OpenAiChatModel;
+import keyi.langchain4j.model.openai.OpenAiChatModelName;
+import keyi.langchain4j.service.AiServices;
+import keyi.langchain4j.web.search.WebSearchTool;
+import keyi.langchain4j.web.search.searchapi.SearchApiEngine;
+import keyi.langchain4j.web.search.searchapi.SearchApiWebSearchEngine;
 
 public class SearchApiTool {
 

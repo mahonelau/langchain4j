@@ -18,7 +18,7 @@ It looks beyond the surface-level matching of terms to consider the deeper inter
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-jina</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

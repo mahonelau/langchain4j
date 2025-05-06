@@ -37,7 +37,7 @@ It will also work with models supporting the OpenAI API, such as DeepSeek.
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-open-ai-official</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -57,8 +57,8 @@ to make it easier with some auto-configuration:
 
 ```java
 import com.openai.models.ChatModel;
-import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.openaiofficial.OpenAiOfficialChatModel;
+import keyi.langchain4j.model.chat.ChatModel;
+import keyi.langchain4j.model.openaiofficial.OpenAiOfficialChatModel;
 
 // ....
 
@@ -221,7 +221,7 @@ To enable the Structured Outputs feature for response formatting when using AI S
 set `supportedCapabilities(Set.of(RESPONSE_FORMAT_JSON_SCHEMA))` and `.strictJsonSchema(true)` when building the model:
 
 ```java
-import static dev.langchain4j.model.chat.Capability.RESPONSE_FORMAT_JSON_SCHEMA;
+import static keyi.langchain4j.model.chat.Capability.RESPONSE_FORMAT_JSON_SCHEMA;
 
 // ...
 

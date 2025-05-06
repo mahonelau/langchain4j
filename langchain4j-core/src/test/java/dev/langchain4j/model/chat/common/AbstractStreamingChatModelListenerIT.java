@@ -30,13 +30,13 @@ import org.junit.jupiter.api.Test;
  * <pre>
  *
  * <dependency>
- *     <groupId>dev.langchain4j</groupId>
+ *     <groupId>keyi.langchain4j</groupId>
  *     <artifactId>langchain4j-core</artifactId>
  *     <scope>test</scope>
  * </dependency>
  *
  * <dependency>
- *     <groupId>dev.langchain4j</groupId>
+ *     <groupId>keyi.langchain4j</groupId>
  *     <artifactId>langchain4j-core</artifactId>
  *     <classifier>tests</classifier>
  *     <type>test-jar</type>

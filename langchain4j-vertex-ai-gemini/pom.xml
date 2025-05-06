@@ -74,12 +74,6 @@
 
         <!-- Retry flaky tests -->
         <dependency>
-            <groupId>keyi.langchain4j</groupId>
-            <artifactId>langchain4j</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.junit-pioneer</groupId>
             <artifactId>junit-pioneer</artifactId>
             <version>1.9.1</version>
@@ -87,14 +81,14 @@
         </dependency>
 
         <dependency>
-            <groupId>dev.langchain4j</groupId>
+            <groupId>keyi.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>dev.langchain4j</groupId>
+            <groupId>keyi.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
             <version>${project.version}</version>
             <classifier>tests</classifier>

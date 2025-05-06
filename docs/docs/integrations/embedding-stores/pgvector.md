@@ -13,7 +13,7 @@ RAG, and more.
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-pgvector</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -21,7 +21,7 @@ RAG, and more.
 
 ## Gradle Dependency
 
-```implementation 'dev.langchain4j:langchain4j-pgvector:1.0.0-beta3'```
+```implementation 'keyi.langchain4j:langchain4j-pgvector:1.0.0-beta3'```
 
 ## APIs
 

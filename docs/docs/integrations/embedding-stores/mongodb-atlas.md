@@ -51,7 +51,7 @@ functionality, such as [OpenAI](https://openai.com/api/) or models from
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-mongodb-atlas</artifactId>
 </dependency>
 <dependency>
@@ -66,7 +66,7 @@ Voyage AI:
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-voyage-ai</artifactId>
 </dependency>
 ```
@@ -76,7 +76,7 @@ We also recommend adding the LangChain4j BOM:
 ```xml
 <dependencyManagement>
     <dependency>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-bom</artifactId>
         <version>1.0.0-beta3</version>
         <type>pom</type>
@@ -96,17 +96,17 @@ instance.
 ```java
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
-import dev.langchain4j.data.document.Metadata;
-import dev.langchain4j.data.embedding.Embedding;
-import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.model.voyageai.VoyageAiEmbeddingModel;
-import dev.langchain4j.store.embedding.EmbeddingMatch;
-import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
-import dev.langchain4j.store.embedding.EmbeddingSearchResult;
-import dev.langchain4j.store.embedding.filter.comparison.*;
-import dev.langchain4j.store.embedding.mongodb.IndexMapping;
-import dev.langchain4j.store.embedding.mongodb.MongoDbEmbeddingStore;
+import keyi.langchain4j.data.document.Metadata;
+import keyi.langchain4j.data.embedding.Embedding;
+import keyi.langchain4j.data.segment.TextSegment;
+import keyi.langchain4j.model.embedding.EmbeddingModel;
+import keyi.langchain4j.model.voyageai.VoyageAiEmbeddingModel;
+import keyi.langchain4j.store.embedding.EmbeddingMatch;
+import keyi.langchain4j.store.embedding.EmbeddingSearchRequest;
+import keyi.langchain4j.store.embedding.EmbeddingSearchResult;
+import keyi.langchain4j.store.embedding.filter.comparison.*;
+import keyi.langchain4j.store.embedding.mongodb.IndexMapping;
+import keyi.langchain4j.store.embedding.mongodb.MongoDbEmbeddingStore;
 import org.bson.Document;
 
 import java.io.*;

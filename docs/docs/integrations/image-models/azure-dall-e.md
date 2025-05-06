@@ -25,7 +25,7 @@ that can be used for various image processing tasks.
 ### Plain Java
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-azure-open-ai</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -34,7 +34,7 @@ that can be used for various image processing tasks.
 ### Spring Boot
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-azure-open-ai-spring-boot-starter</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

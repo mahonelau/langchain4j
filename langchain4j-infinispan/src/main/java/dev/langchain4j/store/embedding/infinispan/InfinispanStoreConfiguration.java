@@ -31,7 +31,7 @@ public record InfinispanStoreConfiguration(String cacheName,
    /**
     * Default package of the schema
     */
-   public static final String DEFAULT_ITEM_PACKAGE = "dev.langchain4j";
+   public static final String DEFAULT_ITEM_PACKAGE = "keyi.langchain4j";
 
    /**
     * Default name of the protobuf langchain item. Size will be added

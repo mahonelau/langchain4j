@@ -8,7 +8,7 @@ This module implements `EmbeddingStore` backed by an AlloyDB for PostgreSQL data
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artificatId>langchain4j-community-alloydb-pg</artificatId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -32,18 +32,18 @@ Use a vector store to store text embedded data and perform vector search. Instan
 
 example usage:
 ```java
-import dev.langchain4j.data.document.Metadata;
-import dev.langchain4j.data.embedding.Embedding;
-import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.embedding.onnx.allminilml6v2.AllMiniLmL6V2EmbeddingModel;
-import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.store.embedding.EmbeddingMatch;
-import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
-import dev.langchain4j.store.embedding.EmbeddingSearchResult;
-import dev.langchain4j.engine.EmbeddingStoreConfig;
-import dev.langchain4j.engine.AlloyDBEngine;
-import dev.langchain4j.engine.MetadataColumn;
-import dev.langchain4j.store.embedding.alloydb.AlloyDBEmbeddingStore;
+import keyi.langchain4j.data.document.Metadata;
+import keyi.langchain4j.data.embedding.Embedding;
+import keyi.langchain4j.data.segment.TextSegment;
+import keyi.langchain4j.model.embedding.onnx.allminilml6v2.AllMiniLmL6V2EmbeddingModel;
+import keyi.langchain4j.model.embedding.EmbeddingModel;
+import keyi.langchain4j.store.embedding.EmbeddingMatch;
+import keyi.langchain4j.store.embedding.EmbeddingSearchRequest;
+import keyi.langchain4j.store.embedding.EmbeddingSearchResult;
+import keyi.langchain4j.engine.EmbeddingStoreConfig;
+import keyi.langchain4j.engine.AlloyDBEngine;
+import keyi.langchain4j.engine.MetadataColumn;
+import keyi.langchain4j.store.embedding.alloydb.AlloyDBEmbeddingStore;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@ https://github.com/judge0/judge0
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-code-execution-engine-judge0</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

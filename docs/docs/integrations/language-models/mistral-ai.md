@@ -14,13 +14,13 @@ For Maven project `pom.xml`
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-mistral-ai</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -29,8 +29,8 @@ For Maven project `pom.xml`
 For Gradle project `build.gradle`
 
 ```groovy
-implementation 'dev.langchain4j:langchain4j:1.0.0-beta3'
-implementation 'dev.langchain4j:langchain4j-mistral-ai:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j-mistral-ai:1.0.0-beta3'
 ```
 ### API Key setup
 Add your MistralAI API key to your project, you can create a class ```ApiKeys.java``` with the following code
@@ -75,8 +75,8 @@ The chat models allow you to generate human-like responses with a model fined-tu
 Create a class and add the following code.
 
 ```java
-import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.mistralai.MistralAiChatModel;
+import keyi.langchain4j.model.chat.ChatModel;
+import keyi.langchain4j.model.mistralai.MistralAiChatModel;
 
 public class HelloWorld {
     public static void main(String[] args) {
@@ -100,10 +100,10 @@ Hello World! How can I assist you today?
 Create a class and add the following code.
 
 ```java
-import dev.langchain4j.data.message.AiMessage;
-import dev.langchain4j.model.chat.response.StreamingChatResponseHandler;
-import dev.langchain4j.model.mistralai.MistralAiStreamingChatModel;
-import dev.langchain4j.model.output.Response;
+import keyi.langchain4j.data.message.AiMessage;
+import keyi.langchain4j.model.chat.response.StreamingChatResponseHandler;
+import keyi.langchain4j.model.mistralai.MistralAiStreamingChatModel;
+import keyi.langchain4j.model.output.Response;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -212,14 +212,14 @@ private String getPaymentData(String transactionId, String data) {
     }
 }
 ```
-It uses a `@Tool` annotation to define the function description and `@P` annotation to define the parameter description of the package `dev.langchain4j.agent.tool.*`. More info [here](/tutorials/tools#high-level-tool-api)
+It uses a `@Tool` annotation to define the function description and `@P` annotation to define the parameter description of the package `keyi.langchain4j.agent.tool.*`. More info [here](/tutorials/tools#high-level-tool-api)
 
 #### 2. Define an interface as an `agent` to send chat messages.
 
 Create an interface `PaymentTransactionAgent`.
 
 ```java
-import dev.langchain4j.service.SystemMessage;
+import keyi.langchain4j.service.SystemMessage;
 
 interface PaymentTransactionAgent {
     @SystemMessage({
@@ -233,11 +233,11 @@ interface PaymentTransactionAgent {
 #### 3. Define a `main` application class to chat with the MistralAI chat model
 
 ```java
-import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.mistralai.MistralAiChatModel;
-import dev.langchain4j.model.mistralai.MistralAiChatModelName;
-import dev.langchain4j.service.AiServices;
+import keyi.langchain4j.memory.chat.MessageWindowChatMemory;
+import keyi.langchain4j.model.chat.ChatModel;
+import keyi.langchain4j.model.mistralai.MistralAiChatModel;
+import keyi.langchain4j.model.mistralai.MistralAiChatModelName;
+import keyi.langchain4j.service.AiServices;
 
 public class PaymentDataAssistantApp {
 

@@ -46,7 +46,7 @@ public class KmsDocLoader {
      */
     public static KmsDocument load(KmsDocSource source) {
         KmsDocument kmsDocument = KmsDocument.from(source);
-        source.metadata().toMap().forEach((key, value) -> kmsDocument.metadata().add(key, value));
+        source.metadata().toMap().forEach((key, value) -> kmsDocument.metadata().put(key, value));
         return kmsDocument;
 //        try (InputStream inputStream = source.inputStream()) {
 //            Document document = parser.parse(inputStream);

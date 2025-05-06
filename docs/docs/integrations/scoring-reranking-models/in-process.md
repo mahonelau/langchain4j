@@ -19,7 +19,7 @@ Many models already converted to ONNX format are available [here](https://huggin
 By default, scoring (reranking) model uses the CPU. 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-onnx-scoring</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -37,7 +37,7 @@ If you want to use the GPU, `onnxruntime_gpu` version can be found
 [here](https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html).
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-onnx-scoring</artifactId>
     <version>1.0.0-beta3</version>
     <exclusions>

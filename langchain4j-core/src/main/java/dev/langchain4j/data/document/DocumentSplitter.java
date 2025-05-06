@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toList;
  * This is necessary as LLMs have a limited context window, making it impossible to send the entire document at once.
  * Therefore, the document should first be split into segments, and only the relevant segments should be sent to LLM.
  * <br>
- * {@code DocumentSplitters.recursive()} from a {@code dev.langchain4j:langchain4j} module is a good starting point.
+ * {@code DocumentSplitters.recursive()} from a {@code keyi.langchain4j:langchain4j} module is a good starting point.
  */
 public interface DocumentSplitter {
 

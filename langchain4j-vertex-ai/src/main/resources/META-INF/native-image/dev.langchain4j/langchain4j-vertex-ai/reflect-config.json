@@ -1,6 +1,6 @@
 [
   {
-    "name" : "dev.langchain4j.model.vertexai.VertexAiChatInstance",
+    "name" : "keyi.langchain4j.model.vertexai.VertexAiChatInstance",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
     "allDeclaredMethods" : true,
@@ -9,7 +9,7 @@
     "allPublicFields" : true
   },
   {
-    "name" : "dev.langchain4j.model.vertexai.VertexAiChatInstance$Message",
+    "name" : "keyi.langchain4j.model.vertexai.VertexAiChatInstance$Message",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
     "allDeclaredMethods" : true,
@@ -18,7 +18,7 @@
     "allPublicFields" : true
   },
   {
-    "name" : "dev.langchain4j.model.vertexai.VertexAiEmbeddingInstance",
+    "name" : "keyi.langchain4j.model.vertexai.VertexAiEmbeddingInstance",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
     "allDeclaredMethods" : true,
@@ -27,7 +27,7 @@
     "allPublicFields" : true
   },
   {
-    "name" : "dev.langchain4j.model.vertexai.VertexAiParameters",
+    "name" : "keyi.langchain4j.model.vertexai.VertexAiParameters",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
     "allDeclaredMethods" : true,
@@ -36,7 +36,7 @@
     "allPublicFields" : true
   },
   {
-    "name" : "dev.langchain4j.model.vertexai.VertexAiTextInstance",
+    "name" : "keyi.langchain4j.model.vertexai.VertexAiTextInstance",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
     "allDeclaredMethods" : true,

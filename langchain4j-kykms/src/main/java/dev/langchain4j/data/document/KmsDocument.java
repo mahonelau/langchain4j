@@ -3,7 +3,7 @@ package dev.langchain4j.data.document;
 import dev.langchain4j.data.document.source.KmsDocSource;
 import dev.langchain4j.data.document.source.KmsFileSource;
 
-public class KmsDocument extends Document {
+public class KmsDocument implements Document {
 
   /**
    * Common metadata key for the name of the file from which the document was loaded.
@@ -15,10 +15,10 @@ public class KmsDocument extends Document {
   public static final String TOPIC_CODE = "topic_code";
 
   public KmsDocument(String text, Metadata metadata) {
-    super(text, metadata);
+    super();
   }
   public KmsDocument(String text) {
-    super(text);
+    super();
   }
 
   public static KmsDocument from(KmsDocSource source) {
@@ -27,4 +27,14 @@ public class KmsDocument extends Document {
   public static KmsDocument from(KmsFileSource source) {
     return new KmsDocument(source.getText());
   }
+
+    @Override
+    public String text() {
+        return null;
+    }
+
+    @Override
+    public Metadata metadata() {
+        return null;
+    }
 }

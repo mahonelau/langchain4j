@@ -72,7 +72,7 @@ The way to use lambdas to stream the response is quite simple.
 You just call the `onPartialResponse()` static method with a lambda expression that defines what to do with the partial response:
 
 ```java
-import static dev.langchain4j.model.LambdaStreamingResponseHandler.onPartialResponse;
+import static keyi.langchain4j.model.LambdaStreamingResponseHandler.onPartialResponse;
 
 model.chat("Tell me a joke", onPartialResponse(System.out::print));
 ```
@@ -81,7 +81,7 @@ The `onPartialResponseAndError()` method allows you to define actions for both
 the `onPartialResponse()` and `onError()` events:
 
 ```java
-import static dev.langchain4j.model.LambdaStreamingResponseHandler.onPartialResponseAndError;
+import static keyi.langchain4j.model.LambdaStreamingResponseHandler.onPartialResponseAndError;
 
 model.chat("Tell me a joke", onPartialResponseAndError(System.out::print, Throwable::printStackTrace));
 ```

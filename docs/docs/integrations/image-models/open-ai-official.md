@@ -35,7 +35,7 @@ It will also work with models supporting the OpenAI API.
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-open-ai-official</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -50,8 +50,8 @@ to make it easier with some auto-configuration:
 
 ```java
 import com.openai.models.images.ImageModel;
-import dev.langchain4j.model.image.ImageModel;
-import dev.langchain4j.model.openaiofficial.OpenAiOfficialImageModel;
+import keyi.langchain4j.model.image.ImageModel;
+import keyi.langchain4j.model.openaiofficial.OpenAiOfficialImageModel;
 
 // ....
 

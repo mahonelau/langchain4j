@@ -534,7 +534,7 @@ You can also use `Flux<String>` instead of `TokenStream`.
 For this, please import `langchain4j-reactor` module:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-reactor</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

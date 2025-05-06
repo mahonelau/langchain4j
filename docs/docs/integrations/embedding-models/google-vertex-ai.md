@@ -15,7 +15,7 @@ Add the following dependencies to your project's `pom.xml`:
 
 ```xml
 <dependency>
-  <groupId>dev.langchain4j</groupId>
+  <groupId>keyi.langchain4j</groupId>
   <artifactId>langchain4j-vertex-ai</artifactId>
   <version>1.0.0-beta3</version>
 </dependency>
@@ -24,7 +24,7 @@ Add the following dependencies to your project's `pom.xml`:
 or project's `build.gradle`:
 
 ```groovy
-implementation 'dev.langchain4j:langchain4j-vertex-ai:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j-vertex-ai:1.0.0-beta3'
 ```
 
 ### Try out an example code:
@@ -34,10 +34,10 @@ implementation 'dev.langchain4j:langchain4j-vertex-ai:1.0.0-beta3'
 The `PROJECT_ID` field represents the variable you set when creating a new Google Cloud project.
 
 ```java
-import dev.langchain4j.data.embedding.Embedding;
-import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.model.output.Response;
-import dev.langchain4j.model.vertexai.VertexAiEmbeddingModel;
+import keyi.langchain4j.data.embedding.Embedding;
+import keyi.langchain4j.model.embedding.EmbeddingModel;
+import keyi.langchain4j.model.output.Response;
+import keyi.langchain4j.model.vertexai.VertexAiEmbeddingModel;
 
 public class VertexAiEmbeddingModelExample {
     

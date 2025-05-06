@@ -11,7 +11,7 @@ sidebar_position: 2
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-anthropic</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -137,7 +137,7 @@ See more details [here](https://docs.quarkiverse.io/quarkus-langchain4j/dev/anth
 Import Spring Boot starter for Anthropic:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-anthropic-spring-boot-starter</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

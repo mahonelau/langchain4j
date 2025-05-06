@@ -34,7 +34,7 @@ To get started, add the following dependencies to your project's `pom.xml`:
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-ollama</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -51,8 +51,8 @@ Try out a simple chat example code when Ollama runs in testcontainers:
 ```java
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Image;
-import dev.langchain4j.model.chat.ChatModel;
-import dev.langchain4j.model.ollama.OllamaChatModel;
+import keyi.langchain4j.model.chat.ChatModel;
+import keyi.langchain4j.model.ollama.OllamaChatModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.DockerClientFactory;
@@ -146,11 +146,11 @@ Try out a simple streaming chat example code when Ollama runs in testcontainers:
 ```java
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Image;
-import dev.langchain4j.data.message.AiMessage;
-import dev.langchain4j.model.chat.response.StreamingChatResponseHandler;
-import dev.langchain4j.model.chat.StreamingChatModel;
-import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
-import dev.langchain4j.model.output.Response;
+import keyi.langchain4j.data.message.AiMessage;
+import keyi.langchain4j.model.chat.response.StreamingChatResponseHandler;
+import keyi.langchain4j.model.chat.StreamingChatModel;
+import keyi.langchain4j.model.ollama.OllamaStreamingChatModel;
+import keyi.langchain4j.model.output.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.DockerClientFactory;

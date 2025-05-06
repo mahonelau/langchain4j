@@ -10,7 +10,7 @@ the [AI Vector Search Feature](https://docs.oracle.com/en/database/oracle/oracle
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-oracle</artifactId>
     <version>1.0.0-beta3</version>
 

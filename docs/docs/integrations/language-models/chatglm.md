@@ -20,7 +20,7 @@ Before `1.0.0-alpha1`:
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-chatglm</artifactId>
     <version>${previous version here}</version>
 </dependency>
@@ -30,7 +30,7 @@ Before `1.0.0-alpha1`:
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-community-chatglm</artifactId>
     <version>${latest version here}</version>
 </dependency>
@@ -41,7 +41,7 @@ Or, you can use BOM to manage dependencies consistently:
 ```xml
 <dependencyManagement>
     <dependency>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-community-bom</artifactId>
         <version>${latest version here}</version>
         <typ>pom</typ>

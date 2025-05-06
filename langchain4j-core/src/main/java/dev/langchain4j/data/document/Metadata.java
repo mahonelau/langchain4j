@@ -326,6 +326,28 @@ public class Metadata {
         this.metadata.put(key, arr);
         return this;
     }
+
+    /**
+     * Adds a key-value pair to the metadata.
+     *
+     * @param key   the key
+     * @param value the value
+     * @return {@code this}
+     */
+    // TODO deprecate once the new experimental API is settled
+    public Metadata put(String key, Object value) {
+        if(value.getClass().isArray()) {
+            int len = Array.getLength(value);
+            if(len>0 && Array.get(value, 0).getClass().getName().equals("java.lang.String")){
+                String[] array = new String[len];
+                for (int i=0; i<len; i++) {
+                    array[i] = (String)Array.get(value, i);
+                }
+                return put(key, array);
+            }
+        }
+        return put(key, value.toString());
+    }
     /**
      * Adds a key-value pair to the metadata.
      *

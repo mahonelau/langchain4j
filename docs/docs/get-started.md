@@ -23,7 +23,7 @@ As an example, let's import the OpenAI dependency:
 - For Maven in `pom.xml`:
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-open-ai</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -34,7 +34,7 @@ the following dependency:
 
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -42,8 +42,8 @@ the following dependency:
 
 - For Gradle in `build.gradle`:
 ```groovy
-implementation 'dev.langchain4j:langchain4j-open-ai:1.0.0-beta3'
-implementation 'dev.langchain4j:langchain4j:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j-open-ai:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j:1.0.0-beta3'
 ```
 
 <details>
@@ -53,7 +53,7 @@ implementation 'dev.langchain4j:langchain4j:1.0.0-beta3'
 <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>dev.langchain4j</groupId>
+            <groupId>keyi.langchain4j</groupId>
             <artifactId>langchain4j-bom</artifactId>
             <version>1.0.0-beta3</version>
             <type>pom</type>
@@ -82,7 +82,7 @@ you can use the most recent SNAPSHOT dependency:
 
 <dependencies>
     <dependency>
-        <groupId>dev.langchain4j</groupId>
+        <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j</artifactId>
         <version>1.0.0-beta4-SNAPSHOT</version>
     </dependency>

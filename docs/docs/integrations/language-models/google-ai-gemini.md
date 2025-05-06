@@ -11,7 +11,7 @@ https://ai.google.dev/gemini-api/docs
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-google-ai-gemini</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

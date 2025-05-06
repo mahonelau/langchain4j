@@ -36,7 +36,7 @@ public class Metadata {
 
     /**
      * @return a chat memory ID. Present when {@link ChatMemory} is used. Can be used to distinguish between users.
-     * See {@code @dev.langchain4j.service.MemoryId} annotation from a {@code dev.langchain4j:langchain4j} module.
+     * See {@code @dev.langchain4j.service.MemoryId} annotation from a {@code keyi.langchain4j:langchain4j} module.
      */
     public Object chatMemoryId() {
         return chatMemoryId;

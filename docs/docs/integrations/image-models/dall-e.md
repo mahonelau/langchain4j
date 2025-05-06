@@ -23,7 +23,7 @@ LangChain4j provides 3 different integrations with OpenAI for generating images,
 ### Plain Java
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-open-ai</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -32,7 +32,7 @@ LangChain4j provides 3 different integrations with OpenAI for generating images,
 ### Spring Boot
 ```xml
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-open-ai-spring-boot-starter</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>

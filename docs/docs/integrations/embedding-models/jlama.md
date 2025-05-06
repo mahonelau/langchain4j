@@ -14,13 +14,13 @@ For Maven project `pom.xml`
 ```xml
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
 
 <dependency>
-    <groupId>dev.langchain4j</groupId>
+    <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-jlama</artifactId>
     <version>1.0.0-beta3</version>
 </dependency>
@@ -38,8 +38,8 @@ For Maven project `pom.xml`
 For Gradle project `build.gradle`
 
 ```groovy
-implementation 'dev.langchain4j:langchain4j:1.0.0-beta3'
-implementation 'dev.langchain4j:langchain4j-jlama:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j:1.0.0-beta3'
+implementation 'keyi.langchain4j:langchain4j-jlama:1.0.0-beta3'
 ```
 
 ## Embedding
@@ -50,13 +50,13 @@ You can use any `bert` based model from [HuggingFace](https://huggingface.co/mod
 Create a class and add the following code.
 
 ```java
-import dev.langchain4j.data.embedding.Embedding;
-import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.jlama.JlamaEmbeddingModel;
-import dev.langchain4j.model.embedding.EmbeddingModel;
-import dev.langchain4j.store.embedding.EmbeddingMatch;
-import dev.langchain4j.store.embedding.EmbeddingStore;
-import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
+import keyi.langchain4j.data.embedding.Embedding;
+import keyi.langchain4j.data.segment.TextSegment;
+import keyi.langchain4j.model.jlama.JlamaEmbeddingModel;
+import keyi.langchain4j.model.embedding.EmbeddingModel;
+import keyi.langchain4j.store.embedding.EmbeddingMatch;
+import keyi.langchain4j.store.embedding.EmbeddingStore;
+import keyi.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 
 import java.util.List;
 
