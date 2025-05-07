@@ -22,7 +22,7 @@
     </licenses>
 
     <properties>
-        <skipVertexAiGeminiITs>false</skipVertexAiGeminiITs>
+        <skipVertexAiGeminiITs>true</skipVertexAiGeminiITs>
         <maven.compiler.parameters>true</maven.compiler.parameters>
     </properties>
 

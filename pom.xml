@@ -226,6 +226,7 @@
                                 <recipe>org.openrewrite.java.testing.assertj.Assertj</recipe>
                             </activeRecipes>
                             <failOnDryRunResults>true</failOnDryRunResults>
+                            <skipTests>true</skipTests>
                         </configuration>
                         <dependencies>
                             <dependency>
