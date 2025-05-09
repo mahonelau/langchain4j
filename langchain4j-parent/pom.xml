@@ -6,7 +6,7 @@
 
     <groupId>keyi.langchain4j</groupId>
     <artifactId>langchain4j-parent</artifactId>
-    <version>0.31.0-SNAPSHOT</version>
+    <version>0.28.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>LangChain4j :: Parent POM</name>
@@ -496,12 +496,32 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+<!--            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>-->
+            <id>2011503-release-r5GaNI</id>
+            <url>https://packages.aliyun.com/5ef4981a2c41c1ea2703ad58/maven/2011503-release-r5gani</url>
         </snapshotRepository>
     </distributionManagement>
 
     <repositories>
+        <repository>
+            <id>2011503-release-r5GaNI</id>
+            <url>https://packages.aliyun.com/5ef4981a2c41c1ea2703ad58/maven/2011503-release-r5gani</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ossrh-snapshots</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
         <repository>
             <id>snapshot-repo</id>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
