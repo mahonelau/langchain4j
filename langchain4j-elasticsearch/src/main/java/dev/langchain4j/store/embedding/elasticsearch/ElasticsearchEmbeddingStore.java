@@ -8,9 +8,7 @@ import co.elastic.clients.elasticsearch._types.mapping.TextProperty;
 import co.elastic.clients.elasticsearch._types.mapping.TypeMapping;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.ScriptScoreQuery;
-import co.elastic.clients.elasticsearch.core.BulkRequest;
-import co.elastic.clients.elasticsearch.core.BulkResponse;
-import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.*;
 import co.elastic.clients.elasticsearch.core.bulk.BulkResponseItem;
 import co.elastic.clients.json.JsonData;
 import co.elastic.clients.json.JsonpMapper;
@@ -20,6 +18,7 @@ import co.elastic.clients.transport.endpoints.BooleanResponse;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.langchain4j.data.document.KmsDocument;
 import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
@@ -204,6 +203,70 @@ public class ElasticsearchEmbeddingStore implements EmbeddingStore<TextSegment> 
             } else {
                 return new ElasticsearchEmbeddingStore(serverUrl, apiKey, userName, password, indexName, dimension);
             }
+        }
+    }
+    
+    @Override
+    public boolean delete(KmsDocument kmsDocument) {
+        try {
+            // 构建删除查询条件：根据 entType 匹配 docId 或 fileId
+            Query deleteQuery = buildDeleteQuery(kmsDocument);
+            
+            // 执行 delete_by_query 操作
+            DeleteByQueryResponse response = client.deleteByQuery(d -> d
+                    .index(indexName)
+                    .query(deleteQuery)
+            );
+            
+            return response.deleted() > 0; // 返回操作是否成功
+        } catch (IOException e) {
+            log.error("删除 Elasticsearch 文档失败", e);
+            return false;
+        }
+    }
+    
+    private Query buildDeleteQuery(KmsDocument kmsDocument) {
+        int entType = kmsDocument.getEntType();
+        if (entType == 1) { // entType=1-doc，使用 docId
+            return Query.of(q -> q.bool(b -> b.must(
+                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.ENT_TYPE).value(entType))),
+                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.DOC_ID).value(kmsDocument.getDocId())))
+            )));
+        } else if (entType == 2) { // entType=2-file，使用 fileId
+            return Query.of(q -> q.bool(b -> b.must(
+                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.ENT_TYPE).value(entType))),
+                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.FILE_ID).value(kmsDocument.getFileId())))
+            )));
+        } else {
+            throw new IllegalArgumentException("无效的 entType: " + entType);
+        }
+    }
+    
+    @Override
+    public boolean update(KmsDocument kmsDocument) {
+        try {
+            // 构建更新查询条件（与删除逻辑一致）
+            Query updateQuery = buildDeleteQuery(kmsDocument);
+            
+            // 执行 update_by_query 操作
+            UpdateByQueryResponse response = client.updateByQuery(u -> u
+                    .index(indexName)
+                    .query(updateQuery)
+                    .script(s -> s // 定义更新脚本
+                            .inline(i -> i
+                                    .source("ctx._source.metadata.title = params.title;\n" +
+                                            "ctx._source.metadata.release_flag = params.releaseFlag;\n" +
+                                            "ctx._source.metadata.topic_code = params.topicCode;")
+                                    .params("title", toJsonData(kmsDocument.getTitle()))
+                                    .params("releaseFlag", toJsonData(kmsDocument.getReleaseFlag()))
+                                    .params("topicCode", toJsonData(kmsDocument.getTopicCode()))
+                            )
+                    )            );
+            
+            return response.updated()  > 0; // 返回操作是否成功
+        } catch (IOException e) {
+            log.error("更新 Elasticsearch 文档失败", e);
+            return false;
         }
     }
 

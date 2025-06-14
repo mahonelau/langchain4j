@@ -1,6 +1,8 @@
 package dev.langchain4j.store.embedding;
 
 import dev.langchain4j.Experimental;
+import dev.langchain4j.data.document.KmsDocument;
+import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.store.embedding.filter.Filter;
 
@@ -55,6 +57,22 @@ public interface EmbeddingStore<Embedded> {
      */
     List<String> addAll(List<Embedding> embeddings, List<Embedded> embedded);
 
+    /**
+     *  delete embedding 
+     * @param kmsDocument  contain key value pair
+     */
+    default boolean delete(KmsDocument kmsDocument) {
+        throw new RuntimeException("Not implemented");
+    }
+    
+    /**
+     *  update embedding 
+     * @param kmsDocument  contain key value pair
+     */
+    default boolean update(KmsDocument kmsDocument) {
+        throw new RuntimeException("Not implemented");
+    }
+    
     /**
      * Searches for the most similar (closest in the embedding space) {@link Embedding}s.
      * <br>

@@ -79,6 +79,18 @@
             <artifactId>slf4j-tinylog</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>keyi.langchain4j</groupId>
+            <artifactId>langchain4j-kykms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>keyi.langchain4j</groupId>
+            <artifactId>langchain4j-kykms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>keyi.langchain4j</groupId>
+            <artifactId>langchain4j-kykms</artifactId>
+        </dependency>
 
     </dependencies>
 

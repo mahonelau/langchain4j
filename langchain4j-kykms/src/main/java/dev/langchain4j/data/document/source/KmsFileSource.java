@@ -13,6 +13,7 @@ import static dev.langchain4j.data.document.KmsDocument.*;
 public class KmsFileSource implements DocumentSource {
 
     public int entType ;
+    public int releaseFlag ;
     public String fileId;
     public String docId;
     public String title;
@@ -20,13 +21,14 @@ public class KmsFileSource implements DocumentSource {
     @Getter
     public String text;
 
-    public KmsFileSource(String text, String fileId, String docId, String[] topicCode,String title, int entType) {
+    public KmsFileSource(String text, String fileId, String docId, String[] topicCode,String title, int entType,int releaseFlag) {
         this.title = title;
         this.entType = entType;
         this.fileId = fileId;
         this.docId = docId;
         this.topicCode = topicCode;
         this.text = text;
+        this.releaseFlag = releaseFlag;
     }
 
     @Override
@@ -38,16 +40,19 @@ public class KmsFileSource implements DocumentSource {
     public Metadata metadata() {
         Metadata metadata = new Metadata()
                 .add(TITLE, title)
-                .add(DOC_ID, docId)
+                .add(FILE_ID,fileId)
+                .add(RELEASE_FLAG,releaseFlag)
                 .add(ENT_TYPE, entType);
+        if(docId!=null && !docId.isEmpty())
+            metadata = metadata.add(DOC_ID, docId);
         if(topicCode!=null && topicCode.length>0)
             metadata = metadata.add(TOPIC_CODE, topicCode);
 
         return metadata;
     }
 
-    public static KmsFileSource from(String text, String fileId, String docId, String[] topicCode,String title, int entType) {
-        return new KmsFileSource(text,fileId,docId,topicCode,title,entType);
+    public static KmsFileSource from(String text, String fileId, String docId, String[] topicCode,String title, int entType,int releaseFlag) {
+        return new KmsFileSource(text,fileId,docId,topicCode,title,entType,releaseFlag);
     }
 
 }

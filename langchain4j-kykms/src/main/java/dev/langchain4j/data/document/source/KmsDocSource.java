@@ -13,18 +13,20 @@ import static dev.langchain4j.data.document.KmsDocument.*;
 public class KmsDocSource implements DocumentSource {
 
     public int entType ;
+    public int releaseFlag ;
     public String docId;
     public String title;
     public String[] topicCode;
     @Getter
     public String text;
 
-    public KmsDocSource(String text, String docId, String[] topicCode, String title,int entType) {
+    public KmsDocSource(String text, String docId, String[] topicCode, String title,int entType,int releaseFlag) {
         this.title = title;
         this.entType = entType;
         this.docId = docId;
         this.topicCode = topicCode;
         this.text = text;
+        this.releaseFlag = releaseFlag;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class KmsDocSource implements DocumentSource {
         Metadata metadata = new Metadata()
                 .add(TITLE, title)
                 .add(DOC_ID, docId)
+                .add(RELEASE_FLAG,  releaseFlag)
                 .add(ENT_TYPE, entType);
         if(topicCode!=null && topicCode.length>0)
             metadata = metadata.add(TOPIC_CODE, topicCode);
@@ -44,8 +47,8 @@ public class KmsDocSource implements DocumentSource {
         return metadata;
     }
 
-    public static KmsDocSource from(String text, String docId, String[] topicCode,String title, int entType) {
-        return new KmsDocSource(text,docId,topicCode,title,entType);
+    public static KmsDocSource from(String text, String docId, String[] topicCode,String title, int entType,int releaseFlag) {
+        return new KmsDocSource(text,docId,topicCode,title,entType,releaseFlag);
     }
 
 }

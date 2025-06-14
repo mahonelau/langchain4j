@@ -13,6 +13,7 @@ import static dev.langchain4j.internal.Exceptions.illegalArgument;
 public class KmsDocLoader {
 
     private static final Logger log = LoggerFactory.getLogger(KmsDocLoader.class);
+    private static KmsDocSource source;
 
     private KmsDocLoader() {
     }
@@ -27,13 +28,13 @@ public class KmsDocLoader {
      * @return document
      * @throws IllegalArgumentException If specified path is not a file.
      */
-    public static KmsDocument loadDocument(String text, String docId, String[] topicCode, String title,int entType) {
+    public static KmsDocument loadDocument(String text, String docId, String[] topicCode, String title,int entType,int releaseFlag) {
         //entType 1:doc,2:file
         if (entType != 1 || docId == null) {
             throw illegalArgument("entType:%s or docId:%s is error", entType,  docId);
         }
 
-        return load(from(text,docId,topicCode,title,entType));
+        return load(from(text,docId,topicCode,title,entType,releaseFlag));
     }
 
     /**
@@ -47,6 +48,11 @@ public class KmsDocLoader {
     public static KmsDocument load(KmsDocSource source) {
         KmsDocument kmsDocument = KmsDocument.from(source);
         source.metadata().toMap().forEach((key, value) -> kmsDocument.metadata().add(key, value));
+        kmsDocument.setEntType(source.entType);
+        kmsDocument.setDocId(source.docId);
+        kmsDocument.setTitle(source.title);
+        kmsDocument.setTopicCode(source.topicCode);
+        kmsDocument.setReleaseFlag(source.releaseFlag);
         return kmsDocument;
 //        try (InputStream inputStream = source.inputStream()) {
 //            Document document = parser.parse(inputStream);
