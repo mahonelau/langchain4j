@@ -18,6 +18,7 @@ import co.elastic.clients.transport.endpoints.BooleanResponse;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.langchain4j.data.document.KmsDocBase;
 import dev.langchain4j.data.document.KmsDocument;
 import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
@@ -27,6 +28,7 @@ import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
 import dev.langchain4j.store.embedding.EmbeddingSearchResult;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.filter.Filter;
+import opennlp.tools.util.StringUtil;
 import org.apache.http.Header;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -40,11 +42,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
+import static dev.langchain4j.data.document.KmsDocBase.*;
 import static dev.langchain4j.internal.Utils.*;
 import static dev.langchain4j.internal.ValidationUtils.*;
 import static java.util.Collections.singletonList;
@@ -210,7 +210,26 @@ public class ElasticsearchEmbeddingStore implements EmbeddingStore<TextSegment> 
     public boolean delete(KmsDocument kmsDocument) {
         try {
             // 构建删除查询条件：根据 entType 匹配 docId 或 fileId
-            Query deleteQuery = buildDeleteQuery(kmsDocument);
+            Query deleteQuery = buildDocIdentifyQuery(kmsDocument);
+            
+            // 执行 delete_by_query 操作
+            DeleteByQueryResponse response = client.deleteByQuery(d -> d
+                    .index(indexName)
+                    .query(deleteQuery)
+            );
+            
+            return response.deleted() > 0; // 返回操作是否成功
+        } catch (IOException e) {
+            log.error("删除 Elasticsearch 文档失败", e);
+            return false;
+        }
+    }
+        
+    @Override
+    public boolean deleteDoc(KmsDocument kmsDocument) {
+        try {
+            // 构建删除查询条件：根据 entType 匹配 docId 或 fileId
+            Query deleteQuery = buildDocIdentifyQuery(kmsDocument, true);
             
             // 执行 delete_by_query 操作
             DeleteByQueryResponse response = client.deleteByQuery(d -> d
@@ -225,17 +244,46 @@ public class ElasticsearchEmbeddingStore implements EmbeddingStore<TextSegment> 
         }
     }
     
-    private Query buildDeleteQuery(KmsDocument kmsDocument) {
-        int entType = kmsDocument.getEntType();
-        if (entType == 1) { // entType=1-doc，使用 docId
+    @Override
+    public boolean exists(KmsDocument kmsDocument) {
+        try {
+            // 构建查询条件：根据 entType 匹配 docId 或 fileId
+            Query searchQuery = buildDocIdentifyQuery(kmsDocument);
+            
+            // 执行 查询 操作
+            CountResponse response = client.count(d ->d
+                    .index(indexName)
+                    .query(searchQuery)
+            );
+            
+            return response.count() > 0;
+        } catch (IOException e) {
+            log.error("删除 Elasticsearch 文档失败", e);
+            return false;
+        }
+    }
+    private Query buildDocIdentifyQuery(KmsDocument kmsDocument) {
+        return buildDocIdentifyQuery(kmsDocument,false);
+    }
+
+    private Query buildDocIdentifyQuery(KmsDocument kmsDocument,boolean docTypeOnly) {
+        KmsDocBase kmsDocBase = kmsDocument.getKmsDocBase();
+        Integer entType = kmsDocBase.getEntType();
+        if (Objects.equals(entType, ENT_TYPE_DOC)) {
+            // entType=1-doc，使用 docId
+            if(docTypeOnly)
+                return Query.of(q -> q.bool(b -> b.must(
+                        Query.of(m -> m.term(t -> t.field("metadata." + ENT_TYPE).value(entType))),
+                        Query.of(m -> m.term(t -> t.field("metadata." + DOC_ID).value(kmsDocBase.getDocId())))
+                )));
+            // doc的逻辑，连带处理file记录
+            return Query.of(m -> m.term(t -> t.field("metadata." + DOC_ID).value(kmsDocBase.getDocId())));
+            
+        } else if (Objects.equals(entType, ENT_TYPE_FILE)) { 
+            // entType=2-file，使用 fileId
             return Query.of(q -> q.bool(b -> b.must(
-                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.ENT_TYPE).value(entType))),
-                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.DOC_ID).value(kmsDocument.getDocId())))
-            )));
-        } else if (entType == 2) { // entType=2-file，使用 fileId
-            return Query.of(q -> q.bool(b -> b.must(
-                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.ENT_TYPE).value(entType))),
-                    Query.of(m -> m.term(t -> t.field("metadata." + KmsDocument.FILE_ID).value(kmsDocument.getFileId())))
+                    Query.of(m -> m.term(t -> t.field("metadata." + ENT_TYPE).value(entType))),
+                    Query.of(m -> m.term(t -> t.field("metadata." + FILE_ID).value(kmsDocBase.getFileId())))
             )));
         } else {
             throw new IllegalArgumentException("无效的 entType: " + entType);
@@ -244,24 +292,41 @@ public class ElasticsearchEmbeddingStore implements EmbeddingStore<TextSegment> 
     
     @Override
     public boolean update(KmsDocument kmsDocument) {
+        KmsDocBase kmsDocBase = kmsDocument.getKmsDocBase();
         try {
             // 构建更新查询条件（与删除逻辑一致）
-            Query updateQuery = buildDeleteQuery(kmsDocument);
-            
+            Query updateQuery = buildDocIdentifyQuery(kmsDocument);
             // 执行 update_by_query 操作
             UpdateByQueryResponse response = client.updateByQuery(u -> u
                     .index(indexName)
                     .query(updateQuery)
-                    .script(s -> s // 定义更新脚本
+                    .script(s -> s// 定义更新脚本
                             .inline(i -> i
-                                    .source("ctx._source.metadata.title = params.title;\n" +
-                                            "ctx._source.metadata.release_flag = params.releaseFlag;\n" +
-                                            "ctx._source.metadata.topic_code = params.topicCode;")
-                                    .params("title", toJsonData(kmsDocument.getTitle()))
-                                    .params("releaseFlag", toJsonData(kmsDocument.getReleaseFlag()))
-                                    .params("topicCode", toJsonData(kmsDocument.getTopicCode()))
+                                    .source("ctx._source.metadata."+ TITLE + " = params.title;\n" +
+                                            "ctx._source.metadata." + RELEASE_FLAG + " = params.releaseFlag;\n" +
+                                            "ctx._source.metadata." + TOPIC_CODES + " = params.topicCode;\n" +
+                                            "ctx._source.metadata." + PUBLIC_REMARK + " = params.publicRemark;\n" +
+                                            "ctx._source.metadata." + CATEGORY + " = params.category;\n" +
+                                            "ctx._source.metadata." + ORG_CODE + " = params.orgCode;\n" +
+                                            "ctx._source.metadata." + RESTRICT_ACCESS_LEVEL + " = params.restrictAccessLevel;\n" +
+                                            "ctx._source.metadata." + CREATE_BY + " = params.createBy;\n" +
+                                            "ctx._source.metadata." + AUTHED_ORG_CODES + " = params.authedOrgCodes;\n" +
+                                            "ctx._source.metadata." + AUTHED_ROLES + " = params.authedRoles;\n" +
+                                            "ctx._source.metadata." + AUTHED_USER_IDS + " = params.authedUserIds;")
+                                    .params("title", toJsonData(kmsDocBase.getTitle()))
+                                    .params("releaseFlag", toJsonData(kmsDocBase.getReleaseFlag()))
+                                    .params("publicRemark", toJsonData(kmsDocBase.getPublicRemark()))
+                                    .params("createBy", toJsonData(kmsDocBase.getCreateBy()))
+                                    .params("orgCode", toJsonData(kmsDocBase.getOrgCode()))
+                                    .params("restrictAccessLevel", toJsonData(kmsDocBase.getRestrictAccessLevel()== null?"":kmsDocBase.getRestrictAccessLevel()))
+                                    .params("category", toJsonData(kmsDocBase.getCategory()== null? "":kmsDocBase.getCategory()))
+                                    .params("topicCode", toJsonData(kmsDocBase.getTopicCodes() == null? new String[]{}:kmsDocBase.getTopicCodes()))
+                                    .params("authedOrgCodes", toJsonData(kmsDocBase.getAuthedOrgCodes() == null? new String[]{}:kmsDocBase.getAuthedOrgCodes()))
+                                    .params("authedRoles", toJsonData(kmsDocBase.getAuthedRoles()== null? new String[]{}:kmsDocBase.getAuthedRoles()))
+                                    .params("authedUserIds", toJsonData(kmsDocBase.getAuthedUserIds() == null? new String[]{}:kmsDocBase.getAuthedUserIds()))
                             )
-                    )            );
+                    )            
+            );
             
             return response.updated()  > 0; // 返回操作是否成功
         } catch (IOException e) {

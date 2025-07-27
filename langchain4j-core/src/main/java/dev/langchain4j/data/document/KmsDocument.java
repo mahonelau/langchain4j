@@ -11,26 +11,8 @@ public class KmsDocument extends Document {
   /**
    * Common metadata key for the name of the file from which the document was loaded.
    */
-  public static final String TITLE = "title";
-  public static final String ENT_TYPE = "ent_type";
-  public static final String FILE_ID = "file_id";
-  public static final String DOC_ID = "doc_id";
-  public static final String TOPIC_CODE = "topic_code";
-  public static final String RELEASE_FLAG = "release_flag";
-
-  //entType: 1-doc,2-file
   @Setter
-  public int entType ;
-  @Setter
-  public String fileId;
-  @Setter
-  public String docId;
-  @Setter
-  public int releaseFlag ;
-  @Setter
-  public String title;
-  @Setter
-  public String[] topicCode; 
+  public KmsDocBase kmsDocBase;
 
   public KmsDocument(String text, Metadata metadata) {
     super(text, metadata);

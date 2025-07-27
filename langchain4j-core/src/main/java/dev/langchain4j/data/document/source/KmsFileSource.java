@@ -1,35 +1,34 @@
 package dev.langchain4j.data.document.source;
 
 import dev.langchain4j.data.document.DocumentSource;
+import dev.langchain4j.data.document.KmsDocBase;
 import dev.langchain4j.data.document.Metadata;
 import lombok.Getter;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-
-import static dev.langchain4j.data.document.KmsDocument.*;
 
 public class KmsFileSource implements DocumentSource {
-
-    public int entType ;
-    public int releaseFlag ;
-    public String fileId;
-    public String docId;
-    public String title;
-    public String[] topicCode;
+    
+    public KmsDocBase kmsDocBase;
     @Getter
     public String text;
 
-    public KmsFileSource(String text, String fileId, String docId, String[] topicCode,String title, int entType,int releaseFlag) {
-        this.title = title;
-        this.entType = entType;
-        this.fileId = fileId;
-        this.docId = docId;
-        this.topicCode = topicCode;
+    public KmsFileSource(String text, String fileId, String docId, String[] topicCode,String title, Integer entType,int releaseFlag) {
+        this.kmsDocBase = new KmsDocBase();
         this.text = text;
-        this.releaseFlag = releaseFlag;
+        this.kmsDocBase.setTitle(title);
+        this.kmsDocBase.setEntType(entType);
+        this.kmsDocBase.setFileId(fileId);
+        this.kmsDocBase.setDocId(docId);
+        this.kmsDocBase.setTopicCodes(topicCode); 
+        this.kmsDocBase.setReleaseFlag(releaseFlag);
     }
+    
+    public KmsFileSource(String text, KmsDocBase kmsDocBase) {
+        this.text = text;
+        this.kmsDocBase = kmsDocBase;
+    }
+
 
     @Override
     public InputStream inputStream() throws IOException {
@@ -38,21 +37,15 @@ public class KmsFileSource implements DocumentSource {
 
     @Override
     public Metadata metadata() {
-        Metadata metadata = new Metadata()
-                .add(TITLE, title)
-                .add(FILE_ID,fileId)
-                .add(RELEASE_FLAG,releaseFlag)
-                .add(ENT_TYPE, entType);
-        if(docId!=null && !docId.isEmpty())
-            metadata = metadata.add(DOC_ID, docId);
-        if(topicCode!=null && topicCode.length>0)
-            metadata = metadata.add(TOPIC_CODE, topicCode);
-
-        return metadata;
+        return KmsDocBase.properties2Metadata(kmsDocBase);
     }
 
-    public static KmsFileSource from(String text, String fileId, String docId, String[] topicCode,String title, int entType,int releaseFlag) {
+    public static KmsFileSource from(String text, String fileId, String docId, String[] topicCode,String title, Integer entType,int releaseFlag) {
         return new KmsFileSource(text,fileId,docId,topicCode,title,entType,releaseFlag);
+    }
+    
+    public static KmsFileSource from(String text, KmsDocBase kmsDocBase) {
+        return new KmsFileSource(text,kmsDocBase);
     }
 
 }

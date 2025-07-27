@@ -64,12 +64,27 @@ public interface EmbeddingStore<Embedded> {
     default boolean delete(KmsDocument kmsDocument) {
         throw new RuntimeException("Not implemented");
     }
+    /**
+     *  delete embedding of doc only
+     * @param kmsDocument  contain key value pair
+     */
+    default boolean deleteDoc(KmsDocument kmsDocument) {
+        throw new RuntimeException("Not implemented");
+    }
     
     /**
      *  update embedding 
      * @param kmsDocument  contain key value pair
      */
     default boolean update(KmsDocument kmsDocument) {
+        throw new RuntimeException("Not implemented");
+    }
+        
+    /**
+     *  save or update embedding 
+     * @param kmsDocument  contain key value pair
+     */
+    default boolean exists(KmsDocument kmsDocument) {
         throw new RuntimeException("Not implemented");
     }
     

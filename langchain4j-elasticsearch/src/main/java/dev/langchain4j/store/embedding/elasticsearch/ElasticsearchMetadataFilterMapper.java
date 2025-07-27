@@ -34,6 +34,10 @@ class ElasticsearchMetadataFilterMapper {
             return mapIn((IsIn) filter);
         } else if (filter instanceof IsNotIn) {
             return mapNotIn((IsNotIn) filter);
+        } else if (filter instanceof IsPrefix) {
+            return mapPrefix((IsPrefix) filter);
+        } else if (filter instanceof IsExists) {
+            return mapExists((IsExists) filter);
         } else if (filter instanceof And) {
             return mapAnd((And) filter);
         } else if (filter instanceof Not) {
@@ -108,6 +112,19 @@ class ElasticsearchMetadataFilterMapper {
                                     .collect(toList());
                             return terms.value(values);
                         })
+        ))).build();
+    }
+    
+    public static Query mapPrefix(IsPrefix isPrefix) {
+        return new Query.Builder().bool(b -> b.filter(pf -> pf.prefix(t ->
+                t.field(formatKey(isPrefix.key(), isPrefix.comparisonValue()))
+                        .value(isPrefix.comparisonValue().toString())
+        ))).build();
+    }
+    
+    public static Query mapExists(IsExists isExists) {
+        return new Query.Builder().bool(b -> b.filter(pf -> pf.exists(t ->
+                t.field("metadata." +isExists.key())
         ))).build();
     }
 

@@ -6,7 +6,7 @@
     <parent>
         <groupId>keyi.langchain4j</groupId>
         <artifactId>langchain4j-parent</artifactId>
-        <version>0.28.0</version>
+        <version>0.28.1</version>
         <relativePath>../langchain4j-parent/pom.xml</relativePath>
     </parent>
 
@@ -14,7 +14,9 @@
     <packaging>jar</packaging>
 
     <name>LangChain4j :: Easy RAG</name>
-
+    <properties>
+        <embedding.version>0.28.0</embedding.version>
+    </properties>
     <dependencies>
 
         <dependency>
@@ -32,7 +34,7 @@
         <dependency>
             <groupId>keyi.langchain4j</groupId>
             <artifactId>langchain4j-embeddings-bge-small-en-v15-q</artifactId>
-            <version>${project.version}</version>
+            <version>${embedding.version}</version>
         </dependency>
 
         <dependency>
