@@ -36,6 +36,8 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.message.BasicHeader;
+import org.elasticsearch.client.Request;
+import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.slf4j.Logger;
@@ -85,11 +87,13 @@ public class ElasticsearchEmbeddingStore implements EmbeddingStore<TextSegment> 
 
         RestClientBuilder restClientBuilder = RestClient
                 .builder(HttpHost.create(ensureNotNull(serverUrl, "serverUrl")));
-
+        
         if (!isNullOrBlank(userName)) {
             CredentialsProvider provider = new BasicCredentialsProvider();
             provider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(userName, password));
-            restClientBuilder.setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(provider));
+            restClientBuilder.setHttpClientConfigCallback(
+                    httpClientBuilder -> httpClientBuilder
+                            .setDefaultCredentialsProvider(provider));
         }
 
         if (!isNullOrBlank(apiKey)) {
@@ -104,7 +108,9 @@ public class ElasticsearchEmbeddingStore implements EmbeddingStore<TextSegment> 
         this.indexName = ensureNotNull(indexName, "indexName");
         this.objectMapper = new ObjectMapper();
 
-        createIndexIfNotExist(indexName, dimension);
+        //createIndexIfNotExist(indexName, dimension);
+        // 添加连接测试和重试逻辑
+        testAndRetryConnection(restClientBuilder.build(), () -> createIndexIfNotExist(indexName, dimension));
     }
 
     public ElasticsearchEmbeddingStore(RestClient restClient, String indexName, Integer dimension) {
@@ -115,9 +121,39 @@ public class ElasticsearchEmbeddingStore implements EmbeddingStore<TextSegment> 
         this.indexName = ensureNotNull(indexName, "indexName");
         this.objectMapper = new ObjectMapper();
 
-        createIndexIfNotExist(indexName, dimension);
+        //createIndexIfNotExist(indexName, dimension);
+        // 添加连接测试和重试逻辑
+        testAndRetryConnection(restClient, () -> createIndexIfNotExist(indexName, dimension));
     }
 
+
+    private void testAndRetryConnection(RestClient restClient, Runnable onSuccess) {
+        int maxRetries = 1000;
+        int retryDelay = 5000;
+
+        for (int attempt = 0; attempt <= maxRetries; attempt++) {
+            try {
+                // 测试连接
+                Response response = restClient.performRequest(new Request("HEAD", "/"));
+                if (response.getStatusLine().getStatusCode() == 200) {
+                    onSuccess.run();
+                    return;
+                }
+            } catch (Exception e) {
+                if (attempt == maxRetries) {
+                    throw new RuntimeException("Failed to connect to Elasticsearch after " + maxRetries + " attempts", e);
+                }
+
+                try {
+                    Thread.sleep((long) retryDelay * (attempt + 1));
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException("Connection retry interrupted", ie);
+                }
+            }
+        }
+    }
+    
     public static Builder builder() {
         return new Builder();
     }
